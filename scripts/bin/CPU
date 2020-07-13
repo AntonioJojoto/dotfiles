@@ -1,0 +1,6 @@
+#/bin/bash
+
+TEMP=$(sensors | grep "Tdie" | awk '{print $2}')
+USAGE=$(echo $[100-$(vmstat 1 2|tail -1|awk '{print $15}')])
+
+echo " $USAGE% & $TEMP"

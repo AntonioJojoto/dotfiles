@@ -1,0 +1,3 @@
+Control + Plus key - Increase font size
+Control + Minus key - Decrease font size // Dont use the ones from the keypad
+Control + Minus key - Decrease font size // Dont use the ones from the keypad

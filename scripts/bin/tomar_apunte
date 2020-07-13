@@ -1,0 +1,16 @@
+#!/bin/bash
+
+target=$(find ~/apuntes -name "*.tex" | grep -v \
+.stversions | awk ' 
+function basename(file) {
+	sub(".*apuntes/", "", file)
+	return file
+} {print(basename($0))} ' | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -i -p "Elige una asignatura")
+if test -z "$target"
+then
+	echo "No pdf selected"
+else
+	urxvt -e nvim ~/apuntes/"$target"
+fi
+
+echo $target

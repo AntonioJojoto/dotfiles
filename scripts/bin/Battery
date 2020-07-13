@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+case $STATUS in
+	"Discharging")
+		echo "Dis & $BAT%";;
+	"Charging")
+		echo "Char & $BAT%";;
+esac

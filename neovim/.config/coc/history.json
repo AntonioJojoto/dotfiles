@@ -1,0 +1,17 @@
+{
+  "lists": {
+    "%2Fhome%2Ftony": [
+      ":"
+    ]
+  },
+  "commands": {
+    "%2Fhome%2Ftony": [
+      ":C"
+    ]
+  },
+  "snippets": {
+    "%2Fhome%2Ftony%2Fapuntes": [
+      "fig"
+    ]
+  }
+}

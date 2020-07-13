@@ -1,0 +1,33 @@
+#!/bin/bash
+
+sel=$(echo -e "Leer PDFs Universidad\nLeer Apuntes\nTomar Apuntes\nLibros\nTiempo Valencia\nTiempo Alicante\n\nSuspender\nHibernar\nApagar\nReiniciar" | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -lines 10 -p "Que quieres hacer?") && echo $sel
+
+
+case $sel in
+	"Leer PDFs Universidad")
+		find_3ro;;	
+	"Leer Apuntes")
+		find_apunte;;
+	"Libros")
+		find_book;;
+	"Tomar Apuntes")
+		tomar_apunte;;
+	"Tiempo Valencia")
+		urxvt -e Tiempo;;
+	"Tiempo Valencia")
+		urxvt -e Tiempo_alicante;;
+	"Susperder")
+		systemctl suspend;;
+	"Hibernar")
+		systemctl hibernate;;
+	"Apagar")
+		poweroff;;
+	"Reinciar")
+		reboot;;
+
+
+
+
+
+
+esac
