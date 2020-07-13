@@ -26,3 +26,5 @@ super + shift + s
 	systemctl suspend
 super + shift + Return
 	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
+super + shift + n 
+	urxvt -e newsboat

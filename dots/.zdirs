@@ -1,10 +1,12 @@
 /home/tony/dotfiles
+/home/tony/.newsboat
+/home/tony/Downloads
+/home/tony
+/home/tony/dotfiles/newboat
 /home/tony/dotfiles/polybar
 /home/tony/dotfiles/dwm
 /home/tony/dotfiles/dwm/.config
-/home/tony
 /home/tony/.config
-/home/tony/.newsboat
 /home/tony/antonio
 /home/tony/antonio/content
 /home/tony/antonio/data
@@ -13,7 +15,3 @@
 /home/tony/Daylight-Pong-python3
 /home/tony/raisimLib/examples
 /home/tony/raisimLib
-/home/tony/raisimGym
-/home/tony/raisimGym/raisim_gym
-/home/tony/raisimGym/raisim_gym/algo
-/home/tony/EDX/Int_Cpp/OOP/Lab
