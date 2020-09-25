@@ -1,10 +1,15 @@
 /home/tony/dotfiles
+/home/tony
+/home/tony/dotfiles/dwm/.config/dwmblocks
+/home/tony/dotfiles/dwm/.config
+/home/tony/dotfiles/sxhkd/.config/sxhkd
+/home/tony/dotfiles/sxhkd/.config
+/home/tony/.config/rofi
 /home/tony/dotfiles/.git
 /home/tony/Sync
 /home/tony/MIDI-Drum-Trigger-Interface/Interface_Code
 /home/tony/MIDI-Drum-Trigger-Interface
 /home/tony/bin
-/home/tony
 /dev/usb
 /home/tony/latex_shit/CV_AslanSuarez
 /home/tony/pedsim_ros
@@ -13,7 +18,3 @@
 /home/tony/.ssh
 /home/tony/dotfiles/newboat/.newsboat
 /home/tony/dotfiles/newboat
-/home/tony/dotfiles/neovim/.config/nvim
-/home/tony/dotfiles/neovim
-/home/tony/dotfiles/sxhkd/.config/sxhkd
-/home/tony/dotfiles/sxhkd/.config
