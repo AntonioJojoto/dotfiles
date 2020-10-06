@@ -3,7 +3,7 @@
     "coc-clangd": ">=0.4.14",
     "coc-json": ">=1.2.6",
     "coc-python": ">=1.2.12",
-    "coc-sh": ">=0.5.1",
-    "coc-snippets": ">=2.2.0"
+    "coc-sh": ">=0.6.0",
+    "coc-snippets": ">=2.2.1"
   }
 }
