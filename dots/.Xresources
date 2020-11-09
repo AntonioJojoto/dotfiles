@@ -98,7 +98,7 @@ URxvt*transparent: true
 
 !! shading - 0 to 99 darkens, 101 to 200 lightens.
 !!   Dont use with tintColor; just use a darker or lighter color instead.
-URxvt*shading: 25 
+URxvt*shading: 15 
 
 !! Copy Paste & Other Extensions, font-size
 
