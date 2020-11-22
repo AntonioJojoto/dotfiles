@@ -5,9 +5,11 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 ""Simplemente latex bro
 Plug 'lervag/vimtex'
-""Snippeds, basicamente sintaxis
 Plug 'vimwiki/vimwiki'
 
+""Snippeds, basicamente sintaxis
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 " Vim GUI
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
@@ -59,7 +61,6 @@ set cindent
 "set smartindent
 filetype plugin indent on " smart autoindentaton
 set wrap
-set showbreak=>\ 
 set smarttab
 set softtabstop=8
 
@@ -125,7 +126,10 @@ set nocompatible
 let g:vimwiki_list = [{'path': '~/apuntes/vimwiki/', 'syntax': 'default', 'ext': '.wiki'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_table_mappings = 0
-
+" Ultisnips
+    let g:UltiSnipsExpandTrigger = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 syntax on
 "colorscheme onedark
 
@@ -148,4 +152,45 @@ set background=dark
 
 hi Normal ctermbg=NONE
 
+
+let g:lightline = {
+	    \   'colorscheme': 'gruvbox',
+	    \   'active': {
+	    \     'left':[ [ 'mode', 'paste' ],
+	    \              [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ]
+	    \     ]
+	    \   },
+	    \   'component': {
+	    \     'lineinfo': ' %3l:%-2v',
+	    \   },
+	    \  'component_function': {
+	    \   'cocstatus': 'coc#status',
+	    \   'currentfunction': 'CocCurrentFunction'
+	    \ },
+	    \ }
+let g:lightline.separator = {
+	    \   'left': '', 'right': ''
+	    \}
+let g:lightline.subseparator = {
+	    \   'left': '', 'right': '' 
+	    \}
+let g:lightline.tabline = {
+	    \   'left': [ ['tabs'] ],
+	    \   'right': [ ['close'] ]
+	    \ }
+"let g:lightline.component_expand = {
+      "\  'linter_checking': 'lightline#ale#checking',
+      "\  'linter_warnings': 'lightline#ale#warnings',
+      "\  'linter_errors': 'lightline#ale#errors',
+      "\  'linter_ok': 'lightline#ale#ok',
+      "\ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+set showtabline=2  " Show tabline
+set guioptions-=e  " Don't use GUI tabline
 
