@@ -1,3 +1,2 @@
-**/.git
-**/neovim/.config/nvim/plugged
-**/neovim/.config/nvim/spell
+**/plugged
+**/spell
