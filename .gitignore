@@ -1,1 +1,6 @@
-.git
+**/.git
+*.o
+*.spl
+*.sug
+*.js
+*.json
