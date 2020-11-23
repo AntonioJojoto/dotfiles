@@ -1,7 +1,3 @@
 **/.git
-*.o
-*.spl
-*.sug
-*.js
-*.json
-dwm
+**/neovim/.config/nvim/plugged
+**/neovim/.config/nvim/spell
