@@ -208,6 +208,12 @@ snippet // "Fraction"
 \\frac{$1}{$2}$0
 endsnippet
 
+context "math()"
+snippet ** "Product"
+\cdot
+endsnippet
+
+
 snippet ... "ldots" iA
 \ldots
 endsnippet
@@ -225,5 +231,31 @@ snippet TF "Transfer Function"
 Transfer Function
 endsnippet
 
+# Enter math mode
+snippet mm "Enter in-line math mode"
+$$1$ $0
+endsnippet
+
+# Size snippets
+
+snippet bigg "large"
+\large
+$0
+\normalsize
+endsnippet
+
+snippet biggg "Large"
+\Large
+$0
+\normalsize
+endsnippet
+
+# Other snippets
+
+snippet nwp "New page"
+\newpage
+
+$0
+endsnippet
 
 # vim:ft=snippets:
