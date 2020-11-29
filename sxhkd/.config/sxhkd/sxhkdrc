@@ -4,27 +4,24 @@ super + r
 	urxvt -e ranger
 super + c
 	urxvt -e calcurse
-super + shift + m
-	spotify
 super + g
 	urxvt -e gotop -p
 super + y
 	urxvt -e octave -q
 super + b
 	urxvt -e alsamixer
-super + shift + t
-	telegram-desktop
 super + d 
 	Menu
 super + e
-	firefox
+	brave	
 super + shift + p
 	keepass ~/Sync/Password_Database.kdbx 
 super + p 
 	rofi -show run -theme Pop-Dark	-font "Iosevka 14"
 super + shift + s
-	systemctl suspend
+	loginctl suspend
 super + shift + Return
-	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
+	urxvt -e nvim 
+#	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
 super + shift + n 
 	urxvt -e newsboat
