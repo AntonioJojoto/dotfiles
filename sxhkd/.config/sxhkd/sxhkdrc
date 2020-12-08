@@ -11,7 +11,7 @@ super + y
 super + b
 	urxvt -e alsamixer
 super + d 
-	Menu
+	/home/tony/bin/Menu
 super + e
 	brave	
 super + shift + p
@@ -25,3 +25,6 @@ super + shift + Return
 #	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
 super + shift + n 
 	urxvt -e newsboat
+# Entrar en TOdo List
+super + t
+	urxvt -e nvim ~/apuntes/vimwiki/'TODO General.wiki'  
