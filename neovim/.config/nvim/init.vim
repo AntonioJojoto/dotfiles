@@ -3,7 +3,6 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
-""Simplemente latex bro
 Plug 'lervag/vimtex'
 Plug 'vimwiki/vimwiki'
 
@@ -14,6 +13,8 @@ Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tranvansang/octave.vim'
 call plug#end()
 
 "" General
