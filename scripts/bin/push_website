@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rsync -a ~/webpage/public root@antonioaslan.com:/var/www/tony
