@@ -28,3 +28,5 @@ super + shift + n
 # Entrar en TOdo List
 super + t
 	urxvt -e nvim ~/apuntes/vimwiki/'TODO General.wiki'  
+super + shift + c
+	tutanota-desktop
