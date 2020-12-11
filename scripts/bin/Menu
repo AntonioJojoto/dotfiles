@@ -5,25 +5,25 @@ sel=$(echo -e "Leer PDFs Universidad\nLeer Apuntes\nTomar Apuntes\nLibros\nTiemp
 
 case $sel in
 	"Leer PDFs Universidad")
-		find_3ro;;	
+		~/bin/find_3ro;;	
 	"Leer Apuntes")
-		find_apunte;;
+		~/bin/find_apunte;;
 	"Libros")
-		find_book;;
+		~/bin/find_book;;
 	"Tomar Apuntes")
-		tomar_apunte;;
+		~/bin/tomar_apunte;;
 	"Tiempo Valencia")
-		urxvt -e Tiempo;;
+		~/bin/urxvt -e Tiempo;;
 	"Tiempo Valencia")
-		urxvt -e Tiempo_alicante;;
+		~/bin/urxvt -e Tiempo_alicante;;
 	"Susperder")
-		systemctl suspend;;
+		~/bin/systemctl suspend;;
 	"Hibernar")
-		systemctl hibernate;;
+		~/bin/systemctl hibernate;;
 	"Apagar")
-		poweroff;;
+		~/bin/poweroff;;
 	"Reinciar")
-		reboot;;
+		~/bin/reboot;;
 
 
 
