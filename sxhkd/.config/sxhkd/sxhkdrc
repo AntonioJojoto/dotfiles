@@ -1,15 +1,16 @@
 # Basic binds
 
 super + r
-	urxvt -e ranger
+	st   ranger
 super + c
-	urxvt -e calcurse
+	st   calcurse
 super + g
-	urxvt -e gotop -p
+	st   gotop -p
 super + y
-	urxvt -e octave -q
+	st   octave -q
+# Arreglar ya que ahora se usa pulseaudio
 super + b
-	urxvt -e alsamixer
+	st   alsamixer
 super + d 
 	/home/tony/bin/Menu
 super + e
@@ -21,12 +22,12 @@ super + p
 super + shift + s
 	loginctl suspend
 super + shift + Return
-	urxvt -e nvim 
+	xfce4-terminal
 #	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
 super + shift + n 
-	urxvt -e newsboat
+	st   newsboat
 # Entrar en TOdo List
 super + t
-	urxvt -e nvim ~/apuntes/vimwiki/'TODO General.wiki'  
+	st   nvim ~/apuntes/vimwiki/'TODO General.wiki'  
 super + shift + c
 	tutanota-desktop
