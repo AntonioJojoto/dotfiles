@@ -13,21 +13,15 @@ case $sel in
 	"Tomar Apuntes")
 		~/bin/tomar_apunte;;
 	"Tiempo Valencia")
-		~/bin/urxvt -e Tiempo;;
+		st Tiempo;;
 	"Tiempo Valencia")
-		~/bin/urxvt -e Tiempo_alicante;;
+		st Tiempo_alicante;;
 	"Susperder")
-		~/bin/systemctl suspend;;
+		systemctl suspend;;
 	"Hibernar")
-		~/bin/systemctl hibernate;;
+		systemctl hibernate;;
 	"Apagar")
-		~/bin/poweroff;;
+		systemctl poweroff;;
 	"Reinciar")
-		~/bin/reboot;;
-
-
-
-
-
-
+		systemctl reboot;;
 esac

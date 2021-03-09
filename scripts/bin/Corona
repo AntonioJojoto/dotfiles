@@ -1,7 +1,0 @@
-#!/bin/sh
-curl -s https://corona-stats.online/Spain > .cache/corona
-
-grep "Country\|Spain" ~/.cache/corona 
-
-grep "Update" ~/.cache/corona
-

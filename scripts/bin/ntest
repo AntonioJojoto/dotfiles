@@ -1,6 +1,0 @@
-#!/bin/sh
-
-pidoff dunst && killall dunst
-dunst &
-
-notify-send "Mensaje Uno tetikoo"
