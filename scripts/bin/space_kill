@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Find and replace all spaces in filenames and replaces with _
+
+for f in *\ *; do mv "$f" "${f// /_}"; done

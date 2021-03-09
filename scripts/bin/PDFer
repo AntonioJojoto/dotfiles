@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Convert all PowerPoint and Word Documents in a folder to PDF automaticly
+# Just run it in the folder and forget
+
+# First remove all spaces in file names
+for f in *\ *; do mv "$f" "${f// /_}"; done
+
+# Then 
+printf "\n"
+echo "Converting to pdf the following files:"
+# Go thought all the files in the directory
+for entry in *; do
+	case $entry in
+		# If file type is recongnized and can convert
+		# Convert the file and remove the original one
+
+		#Note: add more file extentions in the future
+		*.odt)	unoconv -f pdf $entry && echo $entry && rm $entry;;
+		*.pptx)	unoconv -f pdf $entry && echo $entry && rm $entry;;
+		*.docx)	unoconv -f pdf $entry && echo $entry && rm $entry;;
+		*.ppt)	unoconv -f pdf $entry && echo $entry && rm $entry;;
+		*)	printf "Won't convert %s \n" "$entry";;
+	esac
+done
+echo "Done"
