@@ -10,7 +10,7 @@ if test -z "$target"
 then
 	echo "No pdf selected"
 else
-	urxvt -e nvim ~/apuntes/"$target"
+	st nvim ~/apuntes/"$target"
 fi
 
 echo $target
