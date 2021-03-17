@@ -10,9 +10,9 @@ super + y
 	st   octave -q
 # Arreglar ya que ahora se usa pulseaudio
 super + b
-	st   alsamixer
+	st  alsamixer
 super + d 
-	/home/tony/bin/Menu
+	/home/antonio/bin/Menu
 super + e
 	brave	
 super + shift + p
@@ -22,8 +22,7 @@ super + p
 super + shift + s
 	loginctl suspend
 super + shift + Return
-	xfce4-terminal
-#	rofi -show ssh -theme Pop-Dark	-font "Iosevka 14"
+	emacsclient -nc
 super + shift + n 
 	st   newsboat
 # Entrar en TOdo List

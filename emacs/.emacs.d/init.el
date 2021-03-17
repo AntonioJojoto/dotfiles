@@ -93,7 +93,6 @@
 (require 'evil-numbers)
 (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
-(require 'evil-magit)
 (require 'evil-nerd-commenter)
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
@@ -203,7 +202,7 @@
 (dimmer-mode t)
 
 ;; org mode
-;; (setq org-directory "~/.org") ; main org directory
+(setq org-directory "~/.org") ; main org directory
 ;; (setq org-agenda-files
 ;;       '("~/.org/tasks.org" "~/.org/birthdays.org"
 ;; 	"~/.org/reminders.org" "~/.org/university.org"))  ; org agenda tasks files
