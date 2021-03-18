@@ -165,21 +165,164 @@
      (dimmer-configure-org)
      (dimmer-mode t)
    #+end_src
+** Which-key
+   #+begin_src emacs-lisp
+     (require 'which-key)
+     (which-key-mode 1)
+   #+end_src
 ** Other minor configuration
    #+begin_src emacs-lisp
-	  ;; hide GUI
-	  (menu-bar-mode -1)
-	  (toggle-scroll-bar -1)
-	  (tool-bar-mode -1)
+     ;; hide GUI
+     (menu-bar-mode -1)
+     (toggle-scroll-bar -1)
+     (tool-bar-mode -1)
      ;; disable bell
      (setq ring-bell-function 'ignore)
-;; Line highlighting
-(global-hl-line-mode 1)
+     ;; Line highlighting
+     (global-hl-line-mode 1)
 
-;; Show matching parenthesis
-(show-paren-mode 1)
+     ;; Show matching parenthesis
+     (show-paren-mode 1)
 
-;; backup files to another folder
-(setq backup-directory-alist `(("." . "~/.saves")))
+     ;; backup files to another folder
+     (setq backup-directory-alist `(("." . "~/.saves")))
+   #+end_src
+* Evil Mode
+  Time to configure the vim mode in emacs.
+  #+begin_src emacs-lisp
+    ;; evil mode
+    (setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
+    (require 'evil)
+    (require 'evil-nerd-commenter)
+    (require 'evil-org)
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)
+    (require 'evil-surround)
+    (global-evil-leader-mode)
+    (global-evil-surround-mode 1)
+    (evil-mode 1)
+    (evil-snipe-mode 1)
+  #+end_src
+ 
+* Functionality and Plugin Configuration
+  Here all the rest of the pluggins will be configured.
+** Projectile
+   #+begin_src emacs-lisp
+     (projectile-mode 1)
+     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+   #+end_src
+** Helm Mode
+   #+begin_src emacs-lisp
+     ;; helm mode
+     (global-set-key (kbd "M-x") 'helm-M-x)
+     (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+     (global-set-key (kbd "C-x C-f") #'helm-find-files)
+     (global-set-key (kbd "C-x b") 'helm-buffers-list) ;; List buffers ( Emacs way )
+     (global-set-key (kbd "C-x r b") 'helm-bookmarks) ;; Bookmarks menu
+     (global-set-key (kbd "C-x C-f") 'helm-find-files) ;; Finding files with Helm
+     (global-set-key (kbd "M-c") 'helm-calcul-expression) ;; Use Helm for calculations
+     (global-set-key (kbd "C-s") 'helm-occur)  ;; Replaces the default isearch keybinding
+     (global-set-key (kbd "C-h a") 'helm-apropos)  ;; Helmized apropos interface
+     (global-set-key (kbd "M-y") 'helm-show-kill-ring)  ;; Show kill ring, pick something to pastelm-mode 1)
+     (require 'helm-projectile)
+     (helm-projectile-on)
+   #+end_src
+** LSP
+   #+begin_src emacs-lisp
+     (setq gc-cons-threshold 100000000) ; needed because communication generates a lot of garbage
+     (setq read-process-output-max (* 1024 1024)) ;; 1mb
+     (setq lsp-keymap-prefix "C-c l")
+     (require 'lsp-mode)
+     (add-hook 'c-mode-hook #'lsp)
+     (add-hook 'c++-mode-hook #'lsp)
+     (add-hook 'python-mode-hook #'lsp)
+   #+end_src
+** Company and yasnippet
+   #+begin_src emacs-lisp
+     ;; Company
+     (require 'company)
+     (with-eval-after-load 'company
+       (define-key company-active-map (kbd "M-n") nil)
+       (define-key company-active-map (kbd "M-p") nil)
+       (define-key company-active-map (kbd "C-n") #'company-select-next)
+       (define-key company-active-map (kbd "C-p") #'company-select-previous))
+     (add-hook 'after-init-hook 'global-company-mode)
+     (define-key global-map (kbd "C-.") 'company-files)
+
+     ;; Yasnippet
+     (require 'yasnippet)
+     (yas-global-mode 1)
+   #+end_src
+** LaTeX and PDFs
+   #+begin_src emacs-lisp
+     ;; pdf tools
+     (pdf-tools-install)
+     ;; (evil-set-initial-state 'pdf-view-mode 'normal)
+
+     ;; auctex
+     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+	   TeX-source-correlate-start-server t)
+     ; revert the PDF-buffer after the TeX compilation has finished
+     (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+   #+end_src
+** Other configs
+   #+begin_src emacs-lisp
+     ;; avy
+     (avy-setup-default)
    #+end_src
 
+* Org Mode Configuration
+  #+begin_src emacs-lisp
+    (setq org-directory "~/.org") ; main org directory
+    ;; (setq org-agenda-files
+    ;;       '("~/.org/tasks.org" "~/.org/birthdays.org"
+    ;; 	"~/.org/reminders.org" "~/.org/university.org"))  ; org agenda tasks files
+
+    (require 'org-bullets)
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  #+end_src
+
+* Keybindings
+  #+begin_src emacs-lisp
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+      "'" '(term :which-key "iterm")
+      ;; magit
+      "m" '(magit :which-key "magit")
+      ;; buffers
+      "bn" '(evil-next-buffer :which-key "next buffer")
+      "bp" '(evil-previous-buffer :which-key "previous buffer")
+      "bd" '(evil-delete-buffer :which-key "delete buffer")
+      "bb" '(helm-buffers-list :which-key "change buffer")
+      ;; windows
+      "wj" '(evil-window-down :which-key "window down")
+      "wk" '(evil-window-up :which-key "window up")
+      "wh" '(evil-window-left :which-key "window left")
+      "wl" '(evil-window-right :which-key "window right")
+      "ws" '(evil-window-split :which-key "window split")
+      "wv" '(evil-window-vsplit :which-key "window vsplit")
+      "wd" '(evil-window-delete :which-key "window delete")
+      ;; tabs
+      "tn" '(tab-new :which-key "tab new")
+      "th" '(tab-previous :which-key "tab previous")
+      "tl" '(tab-next :which-key "tab next")
+      "tc" '(tab-close :which-key "tab close")
+      ;; evil-commenter
+      "ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
+      "cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
+      "cc" '(evilnc-copy-and-comment-lines :which-key "copy & comment")
+      "cp" '(evilnc-comment-or-uncomment-paragraphs :which-key "(un)comment parahraphs")
+      "cr" '(comment-or-uncomment-region :which-key "(un)comment region")
+      "cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
+      "\\" '(evilnc-comment-operator :which-key "comment operator")
+      ;; avy
+      ";"  '(avy-goto-char-timer :which-key "avy char timer")
+      ;; term
+      "tt" '(term :which-key "shell")
+      ;; ...
+    )
+  #+end_src
