@@ -2,7 +2,7 @@
 #+AUTHOR: Antonio Aslan Suarez
 
 * Packages Manager and packages
-  Here we will set all the packages that will be used in this configuration file.
+  Here we will set all the packages that will be used in this configuration file. 
 ** Package manager configuration
   This part of the configuration file will configure the package manager which is the [[https://github.com/raxod502/straight.el][straight.el]] package manager.
    #+begin_src emacs-lisp
@@ -54,6 +54,12 @@
      (straight-use-package 'evil-org)
    #+end_src
 ** Functionality
+   - [[https://github.com/emacs-helm/helm][Helm]]: Framework for incremental completions and narrowing selections.
+   - [[https://magit.vc/][magit]]: Git inside emacs.
+   - [[https://github.com/bbatsov/projectile][Projectile]]: Project integration in emacs.   
+   - [[https://github.com/noctuid/general.el#about][general]]: More convenient keybindings. 
+   - [[https://github.com/abo-abo/avy][avy]]: More info in the future. 
+      
    #+begin_src emacs-lisp
      (straight-use-package 'helm)
      (straight-use-package 'helm-projectile)
@@ -73,11 +79,15 @@
      (require 'cmake-mode)
    #+end_src
 ** Documents and LaTeX
+   - [[https://github.com/politza/pdf-tools][pdf-tools]]: render PDFs files inside emacs. Useful for working with LaTeX documents.  
+   - [[https://www.emacswiki.org/emacs/AUCTeX][auctex]]: Like vimtex.  
+   
    #+begin_src emacs-lisp
      (straight-use-package 'pdf-tools)
      (straight-use-package 'auctex)
    #+end_src
 ** Org-mode
+   - [[https://github.com/sabof/org-bullets][org-bullets]]: Show org bullets as UTF-8 Characters. 
    #+begin_src emacs-lisp
      (straight-use-package 'org-bullets)
    #+end_src
@@ -86,21 +96,31 @@
 * GUI Configuration
   For configuring the GUI, it not only required to add a couple of packages, some things should be configured by hand.
 ** Font and size
+   Depending on the OS, a different font will be used. If using linux the Iosevka font shall be installed throught yay package manager.
    #+begin_example emacs-lisp
-(set-face-attribute 'default nil :family "Iosevka" :height 130)
+   (cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (when (member "Consolas" (font-family-list))
+    (set-frame-font "Consolas" t t)))
+ ((string-equal system-type "darwin") ; macOS
+  (when (member "Menlo" (font-family-list))
+    (set-frame-font "Menlo" t t)))
+ ((string-equal system-type "gnu/linux") ; linux
+  (when (member "Iosevka" (font-family-list))
+  (set-frame-font "Iosevka" t t))))
    #+end_example
 ** Scroll bars
    #+begin_src emacs-lisp
-;; hide scroll bar in new frames
-(defun my/disable-scroll-bars (frame)
-  (modify-frame-parameters frame
-                           '((vertical-scroll-bars . nil)
-                             (horizontal-scroll-bars . nil))))
-(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
+     ;; hide scroll bar in new frames
+     (defun my/disable-scroll-bars (frame)
+       (modify-frame-parameters frame
+				'((vertical-scroll-bars . nil)
+				  (horizontal-scroll-bars . nil))))
+     (add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
 
-;; scroll off
-(setq scroll-margin 7)
-(setq scroll-conservatively 999) ;; do not center when scrolling
+     ;; scroll off
+     (setq scroll-margin 7)
+     (setq scroll-conservatively 999) ;; do not center when scrolling
    #+end_src
 ** Line numbering
    In this configuration, line numbers will only appear when working on coding projects. For example not in org files.
