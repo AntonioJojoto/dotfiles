@@ -51,6 +51,13 @@
 ;; documents
 (straight-use-package 'pdf-tools)
 (straight-use-package 'auctex)
+;; dictionary
+(straight-use-package 'synosaurus)
+
+;; Other
+; Jupyter Notebooks in emacs
+(straight-use-package 'ein)
+(straight-use-package 'markdown-mode)
 
 ;; hide GUI
 (menu-bar-mode -1)
@@ -81,7 +88,7 @@
 (defun fd-switch-dictionary()
       (interactive)
       (let* ((dic ispell-current-dictionary)
-    	 (change (if (string= dic "castellano8") "english" "castellano8")))
+    	 (change (if (string= dic "es") "english" "es")))
         (ispell-change-dictionary change)
         (message "Dictionary switched from %s to %s" dic change)
         ))
@@ -228,9 +235,8 @@
 
 ;; org mode
 (setq org-directory "~/.org") ; main org directory
-;; (setq org-agenda-files
-;;       '("~/.org/tasks.org" "~/.org/birthdays.org"
-;; 	"~/.org/reminders.org" "~/.org/university.org"))  ; org agenda tasks files
+(setq org-agenda-files
+      '("~/.org/agenda/"))  ; org agenda tasks files
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))

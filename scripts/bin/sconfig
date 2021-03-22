@@ -3,4 +3,4 @@
 # Search for a scecific script of configuration file in the dotfiles folder
 # Using fzf
 
-du -a ~/dotfiles | awk '{print $2}' | fzf | xargs -r nvim
+du -a ~/dotfiles | awk '{print $2}' | fzf | xargs -r emacsclient -nc 
