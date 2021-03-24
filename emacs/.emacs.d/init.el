@@ -17,6 +17,7 @@
 ; (setq straight-vc-git-default-clone-depth 1)
 ; org mode
 (straight-use-package 'org-bullets)
+(straight-use-package 'org-attach-screenshot)
 ; evil-mode
 (straight-use-package 'evil)
 (straight-use-package 'evil-snipe)
@@ -240,6 +241,13 @@
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+; screenshots using flameshot
+(setq org-attach-screenshot-command-line "emacshot %f")    
+(setq org-attach-screenshot-relative-links t)
+(setq org-attach-screenshot-insertfunction
+      (lambda (linkfilename)
+       (insert (concat "[[file:" linkfilename "]]\n\n")) ))
 
 ;; pdf tools
 (pdf-tools-install)

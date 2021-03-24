@@ -1,0 +1,7 @@
+#!/bin/bash
+fname="$1"
+tmpf=$(mktemp -t flshot-XXXX)
+
+flameshot gui --raw > "$tmpf"
+
+mv "$tmpf" $1
