@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Script to push or pull data from the UPV Rigel Machine
+
+echo "Select option on rigel:"
+echo "1) Pull SSLM from Rigel."
+echo "2) Push SSLM to Rigel and connect."
+echo "3) Open SSH."
+
+read selection
+case $selection in
+	1)
+		echo "Pulling from Rigel..." &
+		rsync -avrzP anassua@rigel.upv.es/home/anassua/SSLM_toolbox_v2 ~/;;
+	2)
+		echo "Pushing to Rigel..." & 
+		rsync -avrzP ~/SSLM_toolbox_v2 anassua@rigel.upv.es/home/anassua/ &
+		ssh anassua@rigel.upv.es ;;
+	3)
+		ssh anassua@rigel.upv.es ;;
+esac
+
