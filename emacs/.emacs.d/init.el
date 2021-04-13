@@ -17,6 +17,8 @@
 ; (setq straight-vc-git-default-clone-depth 1)
 ; org mode
 (straight-use-package 'org-bullets)
+(straight-use-package 'org-roam)
+(straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
 ; evil-mode
 (straight-use-package 'evil)
@@ -44,6 +46,8 @@
 ; programming
 ;; (straight-use-package 'flycheck)
 (straight-use-package 'lsp-mode)
+(straight-use-package 'lsp-ui)
+(straight-use-package 'lsp-python-ms)
 (straight-use-package 'company)
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
@@ -160,6 +164,11 @@
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'lsp)
+(add-hook 'rust-mode-hook #'lsp)
+(setq lsp-enable-snippet t)
+(require 'lsp-python-ms)
+(setq lsp-python-ms-auto-install-server t)
+(setq python-shell-interpreter "python")
 
 ;; helm mode
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -237,7 +246,9 @@
 ;; org mode
 (setq org-directory "~/.org") ; main org directory
 (setq org-agenda-files
-      '("~/.org/agenda/"))  ; org agenda tasks files
+      '("~/.org/agenda/trabajo.org" 
+	"~/.org/agenda/recordatorios.org"
+	"~/.org/agenda/Universidad.org"))
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -248,6 +259,57 @@
 (setq org-attach-screenshot-insertfunction
       (lambda (linkfilename)
        (insert (concat "[[file:" linkfilename "]]\n\n")) ))
+
+; org-roam
+(require 'org-roam)
+(setq org-roam-directory "~/.org/roam")
+(setq org-roam-db-location "~/.org/roam.db")
+(add-hook 'after-init-hook 'org-roam-mode)
+(setq org-roam-completion-system 'helm)
+(global-set-key (kbd "C-c r b") 'org-roam)
+(global-set-key (kbd "C-c r c") 'org-roam-capture)
+(global-set-key (kbd "C-c r d") 'org-roam-doctor)
+(global-set-key (kbd "C-c r f") 'org-roam-find-file)
+(global-set-key (kbd "C-c r g") 'org-roam-graph)
+(global-set-key (kbd "C-c r i") 'org-roam-insert)
+(global-set-key (kbd "C-c r m") 'org-roam-mode)
+(global-set-key (kbd "C-c r r") 'org-roam-find-ref)
+(global-set-key (kbd "C-c r t") 'org-roam-buffer-toggle-display)
+
+(define-key global-map "\C-cc" 'org-capture)
+;; configure org capture templates
+(setq org-capture-templates
+      '(("t"               ; hotkey
+	 "Todo list item"  ; name
+	 entry             ; type
+					; heading type and title
+	 (file+headline "~/.org/agenda/trabajo.org" "Tasks")
+	 "* TODO %?\n %i\n %a") ; template
+	("u"               ; hotkey
+	 "University todo item"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Universidad.org" "Tasks")
+	 "* TODO %?\n %i") ; template
+	("b"
+	 "BibTex reference"
+	 plain
+	 (file "~/.org/references.bib")
+	 "%i\n\n")
+      ))
+
+; org-roam-server
+(require 'org-roam-server)
+(setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 7777
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
 
 ;; pdf tools
 (pdf-tools-install)
@@ -315,3 +377,16 @@
 ;;  "b" 'helm-buffers-list
 ;;  ;; ...
 ;;  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
