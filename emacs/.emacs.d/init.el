@@ -45,7 +45,10 @@
 (straight-use-package 'dimmer)
 ; programming
 ;; (straight-use-package 'flycheck)
-(straight-use-package 'lsp-mode)
+(straight-use-package 'lsp-mode
+		      :init
+		      (setq lsp-keymap-prefix "C-c l")
+		      )
 (straight-use-package 'lsp-ui)
 (straight-use-package 'lsp-python-ms)
 (straight-use-package 'company)
@@ -159,12 +162,13 @@
 ;; LSP
 (setq gc-cons-threshold 100000000) ; needed because communication generates a lot of garbage
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq lsp-keymap-prefix "C-c l")
 (require 'lsp-mode)
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'lsp)
 (add-hook 'rust-mode-hook #'lsp)
+; run  npm i -g bash-language-server
+(add-hook 'bash-mode-hook #'lsp)
 (setq lsp-enable-snippet t)
 (require 'lsp-python-ms)
 (setq lsp-python-ms-auto-install-server t)

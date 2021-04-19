@@ -10,3 +10,5 @@ case $STATUS in
 	"Charging")
 		echo "Char & $BAT%";;
 esac
+
+
