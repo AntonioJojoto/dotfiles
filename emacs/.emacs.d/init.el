@@ -245,10 +245,9 @@
 
 ;; org mode
 (setq org-directory "~/.org") ; main org directory
-(setq org-agenda-files
-      '("~/.org/agenda/trabajo.org" 
-	"~/.org/agenda/recordatorios.org"
-	"~/.org/agenda/Universidad.org"))
+(setq org-agenda-files '("~/.org/agenda"))
+(setq org-agenda-span 17
+      org-agenda-start-day "-3d")
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -279,23 +278,66 @@
 (define-key global-map "\C-cc" 'org-capture)
 ;; configure org capture templates
 (setq org-capture-templates
-      '(("t"               ; hotkey
+'(("t"               ; hotkey
 	 "Todo list item"  ; name
 	 entry             ; type
 					; heading type and title
-	 (file+headline "~/.org/agenda/trabajo.org" "Tasks")
+	 (file+headline "~/.org/agenda/trabajo.org" "Pa aburrirme")
 	 "* TODO %?\n %i\n %a") ; template
+
+	;;
+	("w"               ; hotkey
+	 "Grupo Investigación"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/trabajo.org" "Grupo de Investigación Diabetes")
+	 "* TODO %?\n %i\n %a") ; template
+
+
+	;;
+	("f"               ; hotkey
+	 "TFG Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/trabajo.org" "TFG")
+	 "* TODO %?\n %i\n %a") ; template
+
+	;; 
 	("u"               ; hotkey
 	 "University todo item"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/Universidad.org" "Tasks")
+	 (file+headline "~/.org/agenda/notes.org" "Universidad")
 	 "* TODO %?\n %i") ; template
+
+	;; 
+	("o"               ; hotkey
+	 "Other Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/notes.org" "Otros")
+	 "* %?\n %i") ; template
+	
+	;;
 	("b"
 	 "BibTex reference"
 	 plain
 	 (file "~/.org/references.bib")
 	 "%i\n\n")
-      ))
+
+	
+	;;
+	("c"               ; hotkey
+	 "Chuletario Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Chuletas.org" "Emacs")
+	 "* %?\n %i") ; template
+	))
+
+
+; org-refile targets
+; several files can be added
+(setq org-refile-targets '(
+	(org-agenda-files . (:maxlevel . 6)) ; all agenda files folder
+	("~/.org/roam/20210414004403-emacs_tutorial.org" . (:maxlevel . 3)) ; any doubt about emacs shall land here
+	("~/.org/roam/20210413202926-linux_problems.org" . (:maxlevel . 3)) ; problems of linux
+	))
 
 ; org-roam-server
 (require 'org-roam-server)
@@ -368,6 +410,7 @@
   "se" '(flyspell-mode :which-key "toggle flyspell ON/OFF")
   "sh" '(f1 :which-key "previous spell error") 
   "sl" '(f2 :which-key "next spell error")    
+  "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
 			      
   ;; ...
 )
