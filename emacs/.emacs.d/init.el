@@ -259,6 +259,19 @@
       (lambda (linkfilename)
        (insert (concat "[[file:" linkfilename "]]\n\n")) ))
 
+; org-babel for souce blocks
+(org-babel-do-load-languages 'org-babel-load-languages
+			     '((python . t)
+			       (C .t)
+			       (shell .t)
+			       (emacs-lisp . t)
+			       ;; (arduino . t)
+			       (octave . t)
+			       (org . t)
+			       (matlab . t)
+			       ))
+
+
 ; org-roam
 (require 'org-roam)
 (setq org-roam-directory "~/.org/roam")
