@@ -20,6 +20,7 @@
 (straight-use-package 'org-roam)
 (straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
+(require 'ox-beamer)
 ; evil-mode
 (straight-use-package 'evil)
 (straight-use-package 'evil-snipe)
@@ -44,7 +45,7 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'dimmer)
 ; programming
-;; (straight-use-package 'flycheck)
+;(straight-use-package 'flycheck)
 (straight-use-package 'lsp-mode
 		      :init
 		      (setq lsp-keymap-prefix "C-c l")
@@ -55,6 +56,10 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
+(add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
+(add-to-list 'load-path "~/Gits/agenda-html")
+
+
 (require 'cmake-mode)
 ;; documents
 (straight-use-package 'pdf-tools)
@@ -174,6 +179,10 @@
 (setq lsp-python-ms-auto-install-server t)
 (setq python-shell-interpreter "python")
 
+;; arduino-mode
+(setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
+(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
+
 ;; helm mode
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
@@ -269,7 +278,7 @@
 			       (C .t)
 			       (shell .t)
 			       (emacs-lisp . t)
-			       ;; (arduino . t)
+			      ;; (arduino . t)
 			       (octave . t)
 			       (org . t)
 			       (matlab . t)
@@ -325,10 +334,17 @@
 	 "* TODO %?\n %i") ; template
 
 	;; 
+	("r"               ; hotkey
+	 "Añadir recordatorio"  ; name
+	 entry             ; type
+	 (file "~/.org/agenda/recordar.org")
+	 "* TODO %?\n %i") ; template
+
+	;; 
 	("o"               ; hotkey
 	 "Other Entry"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/notes.org" "Otros")
+	 (file+headline "~/.org/agenda/notes.org" "Nota")
 	 "* %?\n %i") ; template
 	
 	;;
@@ -406,7 +422,7 @@
   "wv" '(evil-window-vsplit :which-key "window vsplit")
   "wd" '(evil-window-delete :which-key "window delete")
   ;; tabs
-  "tn" '(tab-new :which-key "tab new")
+  "tGn" '(tab-new :which-key "tab new")
   "th" '(tab-previous :which-key "tab previous")
   "tl" '(tab-next :which-key "tab next")
   "tc" '(tab-close :which-key "tab close")
@@ -428,6 +444,9 @@
   "sh" '(f1 :which-key "previous spell error") 
   "sl" '(f2 :which-key "next spell error")    
   "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
+  ;; agenda files
+  "aa" '(org-agenda :which-key "open agenda menu")
+  
 			      
   ;; ...
 )
@@ -437,13 +456,14 @@
 ;;  "b" 'helm-buffers-list
 ;;  ;; ...
 ;;  )
+(setq org-archive-location "~/.org/agenda/archive.org::* From %s")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org")))
+   '("~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org" "~/.org/agenda/recordar.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
