@@ -265,12 +265,13 @@
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+;; Function to remove underscore from strings
 ; screenshots using flameshot
 (setq org-attach-screenshot-command-line "emacshot %f")    
 (setq org-attach-screenshot-relative-links t)
 (setq org-attach-screenshot-insertfunction
       (lambda (linkfilename)
-       (insert (concat "[[file:" linkfilename "]]\n\n")) ))
+       (insert (concat "#+CAPTION:" (substring linkfilename 7 -4) "\n[[file:"  (replace-regexp-in-string " " "_" linkfilename) "]]\n")) ))
 
 ; org-babel for souce blocks
 (org-babel-do-load-languages 'org-babel-load-languages
@@ -422,7 +423,7 @@
   "wv" '(evil-window-vsplit :which-key "window vsplit")
   "wd" '(evil-window-delete :which-key "window delete")
   ;; tabs
-  "tGn" '(tab-new :which-key "tab new")
+  "tn" '(tab-new :which-key "tab new")
   "th" '(tab-previous :which-key "tab previous")
   "tl" '(tab-next :which-key "tab next")
   "tc" '(tab-close :which-key "tab close")
@@ -446,6 +447,12 @@
   "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
   ;; agenda files
   "aa" '(org-agenda :which-key "open agenda menu")
+  ;; helm-projectile
+  "pp" '(helm-projectile-switch-project :which-key "switch project")
+  "pf" '(helm-projectile-find-file :which-key "find file")
+  "pd" '(helm-projectile-dir :which-key "find dir")
+  "pg" '(helm-projectile-grep :which-key "grep in project")
+  "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
   
 			      
   ;; ...

@@ -1,7 +1,9 @@
 #!/bin/bash
-fname="$1"
+a="$1"
+input=${a// /_}
+fnamme="$input"
 tmpf=$(mktemp -t flshot-XXXX)
 
 flameshot gui --raw > "$tmpf"
 
-mv "$tmpf" $1
+mv "$tmpf" $fnamme
