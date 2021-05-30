@@ -1,0 +1,17 @@
+#!/bin/bash
+input="$1"
+pdf_loc=${input/.tex/.pdf}
+# Convert to pdf
+pdflatex $input 
+# Remove all the unwanted files
+for entry in *; do
+	case $entry in
+		*.aux)	rm $entry ;;
+		*.log)   rm $entry ;;	
+		*.fdb_latexmk)  rm $entry ;;	
+		*.fls)  rm $entry ;;	
+	esac
+done
+# echo $input
+# echo $pdf_loc
+zathura $pdf_loc &

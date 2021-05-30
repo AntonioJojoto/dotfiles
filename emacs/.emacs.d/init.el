@@ -20,6 +20,7 @@
 (straight-use-package 'org-roam)
 (straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
+
 (require 'ox-beamer)
 ; evil-mode
 (straight-use-package 'evil)
@@ -56,7 +57,6 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
-(add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
 (add-to-list 'load-path "~/Gits/agenda-html")
 
 
@@ -179,9 +179,6 @@
 (setq lsp-python-ms-auto-install-server t)
 (setq python-shell-interpreter "python")
 
-;; arduino-mode
-(setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
-(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
 
 ;; helm mode
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -279,7 +276,6 @@
 			       (C .t)
 			       (shell .t)
 			       (emacs-lisp . t)
-			      ;; (arduino . t)
 			       (octave . t)
 			       (org . t)
 			       (matlab . t)
