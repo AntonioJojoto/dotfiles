@@ -15,11 +15,13 @@
 ;; packages
 ; shallow clones not working properly right now
 ; (setq straight-vc-git-default-clone-depth 1)
+
 ; org mode
 (straight-use-package 'org-bullets)
 (straight-use-package 'org-roam)
 (straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
+(straight-use-package 'org-ref)
 
 (require 'ox-beamer)
 ; evil-mode
@@ -33,6 +35,7 @@
 ; functionality
 (straight-use-package 'helm)
 (straight-use-package 'helm-projectile)
+(straight-use-package 'helm-bibtex)
 (straight-use-package 'magit)
 (straight-use-package 'projectile)
 (straight-use-package 'general)
@@ -259,6 +262,22 @@
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
 
+; org-ref and bibtex
+; place where the bibliografy will be stored
+(require 'org-ref)
+; main .bib file
+(setq reftex-default-bibliography '("~/.org/references.bib"))
+(setq org-ref-default-bibliography '("~/.org/references.bib"))
+; folder where pdf will be downloaded
+(setq org-ref-pdf- '("~/.org/bib_pdfs/"))
+; file where citation notes will be stored
+(setq org-ref-bibliografy-notes '("~/.org/bib_notes.org"))
+(setq org-latex-prefer-user-labels t)
+
+(require 'helm-bibtex)
+(setq bibtex-completion-bibliography '("~/.org/references.bib"))
+
+
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
@@ -342,6 +361,12 @@
 	 "Other Entry"  ; name
 	 entry             ; type
 	 (file+headline "~/.org/agenda/notes.org" "Nota")
+	 "* %?\n %i") ; template
+	
+	("t"               ; hotkey
+	 "TFG Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/notes.org" "TFG notes")
 	 "* %?\n %i") ; template
 	
 	;;
@@ -466,7 +491,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org" "~/.org/agenda/recordar.org")))
+   '("~/.org/roam/20210530193530-recopilar_informacion_del_tfg.org" "~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org" "~/.org/agenda/recordar.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
