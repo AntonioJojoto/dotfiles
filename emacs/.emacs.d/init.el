@@ -363,10 +363,16 @@
 	 (file+headline "~/.org/agenda/notes.org" "Nota")
 	 "* %?\n %i") ; template
 	
-	("t"               ; hotkey
-	 "TFG Entry"  ; name
+	("n"               ; hotkey
+	 "Neutrino Notes"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/notes.org" "TFG notes")
+	 (file+headline "~/.org/agenda/notes_TFG.org" "TFG notes")
+	 "* %?\n %i") ; template
+
+	 ("d"              ; hotkey
+	 "Diabeteses Notes"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/notes_Investigación.org" "Diabetes notes")
 	 "* %?\n %i") ; template
 	
 	;;
