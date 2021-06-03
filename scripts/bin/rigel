@@ -5,8 +5,9 @@
 echo "Select option on rigel:"
 echo "1) Pull SSLM from Rigel."
 echo "2) Push SSLM to Rigel and connect."
-echo "3) Push single_line to Rigel and connect."
-echo "4) Open SSH."
+echo "3) Pull SSLM from Rigel (scratch)."
+echo "4) Push SSLM to Rigel (scratch) and connect."
+echo "5) Open SSH."
 
 read selection
 case $selection in
@@ -18,10 +19,14 @@ case $selection in
 		rsync -avr --delete ~/SSLM_toolbox_v2 anassua@rigel.upv.es:/home/anassua
 		ssh anassua@rigel.upv.es ;;
 	3)
-		echo "Pushing to Rigel..." & 
-		rsync -avr --delete ~/single_line_NN anassua@rigel.upv.es:/scratch/anassua
+		echo "Pulling from Rigel (scratch)..." & 
+		rsync -avrzP anassua@rigel.upv.es:/scratch/anassua/SSLM_toolbox_v2/results_rigel ~/SSLM_toolbox_v2 ;;
 		ssh anassua@rigel.upv.es ;;
 	4)
+		echo "Pushing to Rigel..." & 
+		rsync -avr --delete ~/SSLM_toolbox_v2 anassua@rigel.upv.es:/scratch/anassua
+		ssh anassua@rigel.upv.es ;;
+	5)
 		ssh anassua@rigel.upv.es ;;
 esac
 
