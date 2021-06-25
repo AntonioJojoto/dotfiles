@@ -21,12 +21,12 @@ case $selection in
 	3)
 		echo "Pulling from Rigel (scratch)..." & 
 		rsync -avrzP anassua@rigel.upv.es:/scratch/anassua/SSLM_toolbox_v2/results_rigel ~/SSLM_toolbox_v2 ;;
-		ssh anassua@rigel.upv.es ;;
+
 	4)
-		echo "Pushing to Rigel..." & 
-		rsync -avr --delete ~/SSLM_toolbox_v2 anassua@rigel.upv.es:/scratch/anassua
+		echo "Pushing to Rigel (scratch)..." & 
+		rsync -avr --delete ~/SSLM_toolbox_v2 anassua@rigel.upv.es:/scratch/anassua 
 		ssh anassua@rigel.upv.es ;;
 	5)
-		ssh anassua@rigel.upv.es ;;
+		ssh anassua@rigel.upv.es;;
 esac
 

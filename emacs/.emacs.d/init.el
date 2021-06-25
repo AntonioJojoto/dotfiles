@@ -273,6 +273,11 @@
 ; file where citation notes will be stored
 (setq org-ref-bibliografy-notes '("~/.org/bib_notes.org"))
 (setq org-latex-prefer-user-labels t)
+(setq org-latex-pdf-process
+      '("pdflatex -interaction nonstopmode -output-directory %o %f"
+	"bibtex %b"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 (require 'helm-bibtex)
 (setq bibtex-completion-bibliography '("~/.org/references.bib"))
@@ -497,7 +502,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/.org/roam/20210530193530-recopilar_informacion_del_tfg.org" "~/.org/agenda/trabajo.org" "~/.org/agenda/Universidad.org" "~/.org/agenda/recordar.org")))
+   '("~/.org/TFG/Estructura_Castellano.org" "/home/antonio/.org/roam/20210530193530-recopilar_informacion_del_tfg.org" "/home/antonio/.org/agenda/trabajo.org" "/home/antonio/.org/agenda/Universidad.org" "/home/antonio/.org/agenda/recordar.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
