@@ -19,7 +19,7 @@
 ; org mode
 (straight-use-package 'org-bullets)
 (straight-use-package 'org-roam)
-(straight-use-package 'org-roam-server)
+;(straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
 (straight-use-package 'org-ref)
 
@@ -60,7 +60,7 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
-(add-to-list 'load-path "~/Gits/agenda-html")
+;(add-to-list 'load-path "~/Gits/agenda-html")
 
 
 (require 'cmake-mode)
@@ -308,21 +308,20 @@
 
 ; org-roam
 (require 'org-roam)
+(setq org-roam-v2-ack t)
 (setq org-roam-directory "~/.org/roam")
-(setq org-roam-db-location "~/.org/roam.db")
 (add-hook 'after-init-hook 'org-roam-mode)
 (setq org-roam-completion-system 'helm)
 (global-set-key (kbd "C-c r b") 'org-roam)
 (global-set-key (kbd "C-c r c") 'org-roam-capture)
 (global-set-key (kbd "C-c r d") 'org-roam-doctor)
-(global-set-key (kbd "C-c r f") 'org-roam-find-file)
+(global-set-key (kbd "C-c r f") 'org-roam-node-find)
 (global-set-key (kbd "C-c r g") 'org-roam-graph)
-(global-set-key (kbd "C-c r i") 'org-roam-insert)
+(global-set-key (kbd "C-c r i") 'org-roam-node-insert)
 (global-set-key (kbd "C-c r m") 'org-roam-mode)
 (global-set-key (kbd "C-c r r") 'org-roam-find-ref)
 (global-set-key (kbd "C-c r t") 'org-roam-buffer-toggle-display)
 
-(define-key global-map "\C-cc" 'org-capture)
 ;; configure org capture templates
 (setq org-capture-templates
 '(("t"               ; hotkey
@@ -405,19 +404,6 @@
 	("~/.org/roam/20210413202926-linux_problems.org" . (:maxlevel . 3)) ; problems of linux
 	))
 
-; org-roam-server
-(require 'org-roam-server)
-(setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 7777
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20)
 
 ;; pdf tools
 (pdf-tools-install)
@@ -501,8 +487,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("~/.org/TFG/Estructura_Castellano.org" "/home/antonio/.org/roam/20210530193530-recopilar_informacion_del_tfg.org" "/home/antonio/.org/agenda/trabajo.org" "/home/antonio/.org/agenda/Universidad.org" "/home/antonio/.org/agenda/recordar.org")))
+ '(org-agenda-files nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
