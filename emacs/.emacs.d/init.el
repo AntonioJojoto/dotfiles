@@ -63,6 +63,7 @@
 ;(add-to-list 'load-path "~/Gits/agenda-html")
 
 
+
 (require 'cmake-mode)
 ;; documents
 (straight-use-package 'pdf-tools)
@@ -262,6 +263,8 @@
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
 
+; turn on 'org-indent-mode' by default
+(setq org-startup-indented t)
 ; org-ref and bibtex
 ; place where the bibliografy will be stored
 (require 'org-ref)
@@ -310,7 +313,7 @@
 (require 'org-roam)
 (setq org-roam-v2-ack t)
 (setq org-roam-directory "~/.org/roam")
-(add-hook 'after-init-hook 'org-roam-mode)
+(org-roam-setup)
 (setq org-roam-completion-system 'helm)
 (global-set-key (kbd "C-c r b") 'org-roam)
 (global-set-key (kbd "C-c r c") 'org-roam-capture)
@@ -398,11 +401,11 @@
 
 ; org-refile targets
 ; several files can be added
-(setq org-refile-targets '(
-	(org-agenda-files . (:maxlevel . 6)) ; all agenda files folder
-	("~/.org/roam/20210414004403-emacs_tutorial.org" . (:maxlevel . 3)) ; any doubt about emacs shall land here
-	("~/.org/roam/20210413202926-linux_problems.org" . (:maxlevel . 3)) ; problems of linux
-	))
+;; (setq org-refile-targets '(
+;; 	(org-agenda-files . (:maxlevel . 6)) ; all agenda files folder
+;; 	("~/.org/roam/20210414004403-emacs_tutorial.org" . (:maxlevel . 3)) ; any doubt about emacs shall land here
+;; 	("~/.org/roam/20210413202926-linux_problems.org" . (:maxlevel . 3)) ; problems of linux
+;; 	))
 
 
 ;; pdf tools
@@ -487,7 +490,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files nil))
+ '(org-agenda-files nil)
+ '(warning-suppress-types '((org-roam) (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

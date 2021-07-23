@@ -1,32 +1,38 @@
 # Basic binds
 
+# description: Terminal File Manager
 super + r
 	st   ranger
-super + c
-	st   calcurse
+# description: Terminal Resources Manager
 super + g
 	st   gotop -p
+# description: Octave
 super + y
 	st   octave -q
-# Arreglar ya que ahora se usa pulseaudio
+#description: Alsamixer
 super + b
 	st  alsamixer
+#description: Antonio Menu
 super + d 
-	/home/antonio/bin/Menu
+	/home/tony/bin/Menu
+#description: Firefox
 super + e
-	brave	
+	firefox
+#description: Password Manager
 super + shift + p
 	keepass ~/Sync/Password_Database.kdbx 
+#description: Rofi drun
 super + p 
 	rofi -show run -theme Pop-Dark	-font "Iosevka 14"
+#description: Suspend
 super + shift + s
 	loginctl suspend
+#description: Emacs Client
 super + shift + Return
 	emacsclient -nc
-super + shift + n 
-	st   newsboat
-# Entrar en TOdo List
-super + t
-	st   nvim ~/apuntes/vimwiki/'TODO General.wiki'  
+#description: Email Client
 super + shift + c
 	tutanota-desktop
+#description: Help With keys
+super + shift + h
+	help-bindings
