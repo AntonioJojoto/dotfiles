@@ -68,6 +68,7 @@
 ;; documents
 (straight-use-package 'pdf-tools)
 (straight-use-package 'auctex)
+(straight-use-package 'cdlatex)
 ;; dictionary
 (straight-use-package 'synosaurus)
 
@@ -265,6 +266,9 @@
 
 ; turn on 'org-indent-mode' by default
 (setq org-startup-indented t)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
+(add-hook 'latex-mode-hook 'turn-on-cdlatex)
+
 ; org-ref and bibtex
 ; place where the bibliografy will be stored
 (require 'org-ref)

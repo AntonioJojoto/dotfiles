@@ -1,0 +1,51 @@
+!! Colorschemqe
+
+! special
+*.foreground:   #c8c8c8
+*.background:   #151515
+*.cursorColor:  #c8c8c8
+
+! black
+*.color0:       #292929
+*.color8:       #525252
+
+! red
+*.color1:       #cf6a4c
+*.color9:       #ff9d80
+
+! green
+*.color2:       #19cb00
+*.color10:      #23fd00
+
+! yellow
+*.color3:       #fad07a
+*.color11:      #ffefbf
+
+! blue
+*.color4:       #8197bf
+*.color12:      #accaff
+
+! magenta
+*.color5:       #8787af
+*.color13:      #c4c4ff
+
+! cyan
+*.color6:       #668799
+*.color14:      #80bfaf
+
+! white
+*.color7:       #888888
+*.color15:      #e8e8d3
+
+!! St terminal configuration, forked from Lukes
+
+! Set transparency (0-1)
+st.alpha: 0.92
+
+! Default font and size
+st.font:Iosevka-16
+st.termname: st-256color
+st.borderpx: 10
+
+
+
