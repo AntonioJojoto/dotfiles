@@ -22,6 +22,7 @@
 ;(straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
 (straight-use-package 'org-ref)
+(straight-use-package 'org-fragtog)
 
 (require 'ox-beamer)
 ; evil-mode
@@ -260,7 +261,7 @@
 
 ;; org mode
 (setq org-directory "~/.org") ; main org directory
-(setq org-agenda-files '("~/.org/agenda"))
+(setq org-agenda-files '("~/.org/agenda/"))
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
 
@@ -268,6 +269,19 @@
 (setq org-startup-indented t)
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)
+
+; turn on org latex preview by default
+(add-hook 'org-mode-hook 'org-fragtog-mode)
+
+; scale to display org latex preview
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+
+; update latex preview size with font size
+(defun update-org-latex-fragments ()
+  (org-latex-preview '(64))
+  (plist-put org-format-latex-options :scale text-scale-mode-amount)
+  (org-latex-preview '(16)))
+(add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
 
 ; org-ref and bibtex
 ; place where the bibliografy will be stored
@@ -339,25 +353,25 @@
 	 "* TODO %?\n %i\n %a") ; template
 
 	;;
-	("w"               ; hotkey
-	 "Grupo Investigación"  ; name
+	("m"               ; hotkey
+	 "MIDA"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/trabajo.org" "Grupo de Investigación Diabetes")
+	 (file+headline "~/.org/agenda/Universidad.org" "Model Identification and Data Analysis")
 	 "* TODO %?\n %i\n %a") ; template
 
 
 	;;
-	("f"               ; hotkey
-	 "TFG Entry"  ; name
+	("d"               ; hotkey
+	 "Dynamics"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/trabajo.org" "TFG")
+	 (file+headline "~/.org/agenda/Universidad.org" "Dynamics of Mechanical Systems")
 	 "* TODO %?\n %i\n %a") ; template
 
 	;; 
-	("u"               ; hotkey
-	 "University todo item"  ; name
+	("c"               ; hotkey
+	 "Computer Aided Manufacturing"  ; name
 	 entry             ; type
-	 (file+headline "~/.org/agenda/notes.org" "Universidad")
+	 (file+headline "~/.org/agenda/Universidad.org" "Computer Aided Manufacturing")
 	 "* TODO %?\n %i") ; template
 
 	;; 
@@ -374,12 +388,6 @@
 	 (file+headline "~/.org/agenda/notes.org" "Nota")
 	 "* %?\n %i") ; template
 	
-	("n"               ; hotkey
-	 "Neutrino Notes"  ; name
-	 entry             ; type
-	 (file+headline "~/.org/agenda/notes_TFG.org" "TFG notes")
-	 "* %?\n %i") ; template
-
 	 ("d"              ; hotkey
 	 "Diabeteses Notes"  ; name
 	 entry             ; type
@@ -478,6 +486,9 @@
   "pd" '(helm-projectile-dir :which-key "find dir")
   "pg" '(helm-projectile-grep :which-key "grep in project")
   "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
+  ;; ayuda para tomar apuntes
+  "ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
+  "af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
   
 			      
   ;; ...
@@ -494,7 +505,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files nil)
+ ;; '(org-agenda-files nil)
  '(warning-suppress-types '((org-roam) (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
