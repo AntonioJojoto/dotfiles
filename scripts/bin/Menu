@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sel=$(echo -e "Leer PDFs Universidad\nLeer Apuntes\nTomar Apuntes\nLibros\nTiempo Valencia\nTiempo Alicante\n\nSuspender\nHibernar\nApagar\nReiniciar" | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -lines 10 -p "Que quieres hacer?") && echo $sel
+sel=$(echo -e "Leer PDFs Universidad\nLeer Apuntes\nTomar Apuntes\nLibros\nVer Clase\nChuletas" | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -lines 10 -p "Que quieres hacer?") && echo $sel
 
 
 case $sel in
@@ -11,17 +11,10 @@ case $sel in
 	"Libros")
 		~/bin/find_book;;
 	"Tomar Apuntes")
-		~/bin/tomar_apunte;;
-	"Tiempo Valencia")
-		st Tiempo;;
-	"Tiempo Valencia")
-		st Tiempo_alicante;;
-	"Susperder")
-		systemctl suspend;;
-	"Hibernar")
-		systemctl hibernate;;
-	"Apagar")
-		systemctl poweroff;;
-	"Reinciar")
-		systemctl reboot;;
+	    ~/bin/tomar_apunte;;
+	"Ver Clase")
+	    ~/bin/find_clase;;
+	"Chuletas")
+	    ~/bin/help-bindings;;
+	
 esac

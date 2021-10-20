@@ -1,4 +1,0 @@
-#!/bin/bash
-
-curl wttr.in/alicante
-sleep 60

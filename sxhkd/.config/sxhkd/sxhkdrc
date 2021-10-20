@@ -30,9 +30,6 @@ super + shift + s
 #description: Emacs Client
 super + shift + Return
 	emacsclient -nc
-#description: Email Client
-super + shift + c
-	tutanota-desktop
 #description: Help With keys
 super + shift + h
 	help-bindings

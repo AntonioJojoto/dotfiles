@@ -1,6 +1,6 @@
 #!/bin/bash
 
-target=$(find ~/apuntes -name "*.tex" | grep -v \
+target=$(find ~/.org/apuntes/ -name "*.org" | grep -v \
 .stversions | awk ' 
 function basename(file) {
 	sub(".*apuntes/", "", file)
@@ -10,7 +10,7 @@ if test -z "$target"
 then
 	echo "No pdf selected"
 else
-	st emcasclient -nc ~/apuntes/"$target"
+	st emcasclient -nc ~/.org/apuntes/"$target"
 fi
 
 echo $target

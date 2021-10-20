@@ -1,5 +1,0 @@
-#!/bin/bash
-
-curl wttr.in/Valencia
-sleep 60
-

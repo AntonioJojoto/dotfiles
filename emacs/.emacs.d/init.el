@@ -41,6 +41,7 @@
 (straight-use-package 'projectile)
 (straight-use-package 'general)
 (straight-use-package 'avy)
+(straight-use-package 'cheat-sh)
 ; gui
 (straight-use-package 'dashboard)
 (straight-use-package 'which-key)
@@ -269,6 +270,9 @@
 (setq org-startup-indented t)
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)
+
+;; cdlatex pair insertion
+(setq cdlatex-paired-parens t)
 
 ; turn on org latex preview by default
 (add-hook 'org-mode-hook 'org-fragtog-mode)
