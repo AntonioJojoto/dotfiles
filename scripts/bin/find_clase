@@ -10,7 +10,7 @@ if test -z "$target"
 then
 	echo "No pdf selected"
 else
-	zathura ~/Lectures/"$target"
+	mpv ~/Lectures/"$target"
 fi
 
 echo $target
