@@ -126,6 +126,20 @@
   (call-interactively 'evil-next-flyspell-error) ; go to the next error
   (call-interactively 'ispell-word))             ; and prompt the correction
 
+;; Preview all latex fragments
+(defun latex-preview-all()
+  (interactive)
+  (setq init-point (point)) ; This is where we start
+  (goto-char 1) ; Go to the beginning of the document
+  (while (< (point) (point-max)) ; Until the end of the document is reached
+    (call-interactively 'org-next-visible-heading) ; Go to the next heading
+    (call-interactively 'org-latex-preview) ; Preview the whole heading
+    )
+  ; Go to the point at which the function was called
+  (goto-char init-point)) 
+
+    
+
 
 ;; font size
 (set-face-attribute 'default nil :family "Iosevka" :height 130)
@@ -276,6 +290,7 @@
 
 ; turn on org latex preview by default
 (add-hook 'org-mode-hook 'org-fragtog-mode)
+(add-hook 'org-mode-hook 'latex-preview-all) ; homemade function
 
 ; scale to display org latex preview
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
@@ -517,3 +532,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Some usefull functions
