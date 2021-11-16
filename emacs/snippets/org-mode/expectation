@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Expectation
+# key: exx
+# --
+
+\mathbb{E}[$1]$0

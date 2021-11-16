@@ -30,7 +30,6 @@
 (straight-use-package 'evil-snipe)
 (straight-use-package 'evil-numbers)
 (straight-use-package 'evil-leader)
-(straight-use-package 'evil-surround)
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-org)
 ; functionality
@@ -165,9 +164,7 @@
 (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
-(require 'evil-surround)
 (global-evil-leader-mode)
-(global-evil-surround-mode 1)
 (evil-mode 1)
 (evil-snipe-mode 1)
 
@@ -183,6 +180,13 @@
 
 ;; Yasnippet
 (require 'yasnippet)
+
+(setq yas-snippet-dirs
+      '("~/dotfiles/emacs/snippets"                 ;; personal snippets
+        "~/.emacs.d/straight/build/yasnippet-snippets/snippets"           ;; foo-mode and bar-mode snippet collection
+;;      "/path/to/yasnippet/yasmate/snippets" ;; the yasmate collection
+        ))
+
 (yas-global-mode 1)
 
 ;; LSP
@@ -265,6 +269,8 @@
 ;; doom themes
 (load-theme 'doom-gruvbox t)
 
+
+
 ;; dimmer
 (require 'dimmer)
 (dimmer-configure-which-key)
@@ -285,8 +291,6 @@
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)
 
-;; cdlatex pair insertion
-(setq cdlatex-paired-parens t)
 
 ; turn on org latex preview by default
 (add-hook 'org-mode-hook 'org-fragtog-mode)
