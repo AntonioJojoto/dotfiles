@@ -1,4 +1,4 @@
-;; Straight package manager
+u; Straight package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -24,6 +24,7 @@
 (straight-use-package 'org-ref)
 (straight-use-package 'org-fragtog)
 
+(require 'ox-beamer)
 ; evil-mode
 (straight-use-package 'evil)
 (straight-use-package 'evil-snipe)
@@ -33,22 +34,20 @@
 (straight-use-package 'evil-org)
 ; functionality
 (straight-use-package 'helm)
-(straight-use-package 'counsel)
-(straight-use-package 'ivy)
-(straight-use-package 'ivy-rich)
 (straight-use-package 'helm-projectile)
 (straight-use-package 'helm-bibtex)
 (straight-use-package 'magit)
 (straight-use-package 'projectile)
 (straight-use-package 'general)
+(straight-use-package 'avy)
 (straight-use-package 'cheat-sh)
 ; gui
 (straight-use-package 'dashboard)
 (straight-use-package 'which-key)
 (straight-use-package 'all-the-icons)
 (straight-use-package 'page-break-lines)
+(straight-use-package 'telephone-line)
 (straight-use-package 'doom-themes)
-(straight-use-package 'doom-modeline)
 (straight-use-package 'dimmer)
 ; programming
 ;(straight-use-package 'flycheck)
@@ -72,18 +71,15 @@
 (straight-use-package 'auctex)
 (straight-use-package 'cdlatex)
 
+;; Other
+; Jupyter Notebooks in emacs
+(straight-use-package 'ein)
+(straight-use-package 'markdown-mode)
+
 ;; hide GUI
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
-
-;; doom themes
-(require 'doom-themes)
-(load-theme 'doom-material t)
-(doom-modeline-mode 1)
-(setq doom-modeline-height 45)
-
-
 
 ;; hide scroll bar in new frames
 (defun my/disable-scroll-bars (frame)
@@ -139,12 +135,14 @@
   ; Go to the point at which the function was called
   (goto-char init-point)) 
 
+    
+
 
 ;; font size
-(set-face-attribute 'default nil :family "Iosevka" :height 140)
+(set-face-attribute 'default nil :family "Iosevka" :height 130)
 
 ;; Line highlighting
-(global-hl-line-mode 0)
+(global-hl-line-mode 1)
 
 ;; Show matching parenthesis
 (show-paren-mode 1)
@@ -204,20 +202,24 @@
 (setq lsp-python-ms-auto-install-server t)
 (setq python-shell-interpreter "python")
 
-;; Use ivy for searching and launching
-(require 'ivy)
-(require 'ivy-rich)
-(ivy-rich-mode 1)
-(ivy-mode 1)
 
-; set ivy hotkeys
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x) ; counsel search command
-(global-set-key (kbd "C-x C-f") 'counsel-find-file) 
+;; helm mode
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list) ;; List buffers ( Emacs way )
+(global-set-key (kbd "C-x r b") 'helm-bookmarks) ;; Bookmarks menu
+(global-set-key (kbd "C-x C-f") 'helm-find-files) ;; Finding files with Helm
+(global-set-key (kbd "M-c") 'helm-calcul-expression) ;; Use Helm for calculations
+(global-set-key (kbd "C-s") 'helm-occur)  ;; Replaces the default isearch keybinding
+(global-set-key (kbd "C-h a") 'helm-apropos)  ;; Helmized apropos interface
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)  ;; Show kill ring, pick something to pastelm-mode 1)
+(require 'helm-projectile)
+(helm-projectile-on)
+
 ;; projectile
 (projectile-mode 1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
 
 ;; which key
 (require 'which-key)
@@ -241,6 +243,29 @@
 ;; avy
 (avy-setup-default)
 
+;; modeline
+;; for telephone-line configuration needs to be before (telephhone-line-mode 1)
+(require 'telephone-line)
+(setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+      telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+      telephone-line-primary-right-separator 'telephone-line-cubed-right
+      telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+(setq telephone-line-height 24)
+(setq telephone-line-lhs
+      '((evil   . (telephone-line-evil-tag-segment))
+        (accent . (telephone-line-vc-segment
+                   telephone-line-erc-modified-channels-segment
+                   telephone-line-process-segment))
+        (nil    . (telephone-line-buffer-segment
+		   telephone-line-minor-mode-segment))))
+(setq telephone-line-rhs
+      '((nil    . (telephone-line-misc-info-segment))
+        (accent . (telephone-line-major-mode-segment))
+        (evil   . (telephone-line-airline-position-segment))))
+(telephone-line-mode 1)
+
+;; doom themes
+(load-theme 'doom-gruvbox t)
 
 
 
@@ -316,7 +341,11 @@
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((python . t)
 			       (C .t)
+			       (shell .t)
 			       (emacs-lisp . t)
+			       (octave . t)
+			       (org . t)
+			       (matlab . t)
 			       ))
 
 
@@ -324,7 +353,6 @@
 (require 'org-roam)
 (setq org-roam-v2-ack t)
 (setq org-roam-directory "~/.org/roam")
-(setq org-roam-dailies-directory "journal/")
 (org-roam-setup)
 (setq org-roam-completion-system 'helm)
 (global-set-key (kbd "C-c r b") 'org-roam)
@@ -336,6 +364,82 @@
 (global-set-key (kbd "C-c r m") 'org-roam-mode)
 (global-set-key (kbd "C-c r r") 'org-roam-find-ref)
 (global-set-key (kbd "C-c r t") 'org-roam-buffer-toggle-display)
+
+;; configure org capture templates
+(setq org-capture-templates
+'(("t"               ; hotkey
+	 "Todo list item"  ; name
+	 entry             ; type
+					; heading type and title
+	 (file+headline "~/.org/agenda/trabajo.org" "Pa aburrirme")
+	 "* TODO %?\n %i\n %a") ; template
+
+	;;
+	("m"               ; hotkey
+	 "MIDA"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Universidad.org" "Model Identification and Data Analysis")
+	 "* TODO %?\n %i\n %a") ; template
+
+
+	;;
+	("d"               ; hotkey
+	 "Dynamics"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Universidad.org" "Dynamics of Mechanical Systems")
+	 "* TODO %?\n %i\n %a") ; template
+
+	;; 
+	("c"               ; hotkey
+	 "Computer Aided Manufacturing"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Universidad.org" "Computer Aided Manufacturing")
+	 "* TODO %?\n %i") ; template
+
+	;; 
+	("r"               ; hotkey
+	 "Añadir recordatorio"  ; name
+	 entry             ; type
+	 (file "~/.org/agenda/recordar.org")
+	 "* TODO %?\n %i") ; template
+
+	;; 
+	("o"               ; hotkey
+	 "Other Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/notes.org" "Nota")
+	 "* %?\n %i") ; template
+	
+	 ("d"              ; hotkey
+	 "Diabeteses Notes"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/notes_Investigación.org" "Diabetes notes")
+	 "* %?\n %i") ; template
+	
+	;;
+	("b"
+	 "BibTex reference"
+	 plain
+	 (file "~/.org/references.bib")
+	 "%i\n\n")
+
+	
+	;;
+	("c"               ; hotkey
+	 "Chuletario Entry"  ; name
+	 entry             ; type
+	 (file+headline "~/.org/agenda/Chuletas.org" "Emacs")
+	 "* %?\n %i") ; template
+	))
+
+
+; org-refile targets
+; several files can be added
+;; (setq org-refile-targets '(
+;; 	(org-agenda-files . (:maxlevel . 6)) ; all agenda files folder
+;; 	("~/.org/roam/20210414004403-emacs_tutorial.org" . (:maxlevel . 3)) ; any doubt about emacs shall land here
+;; 	("~/.org/roam/20210413202926-linux_problems.org" . (:maxlevel . 3)) ; problems of linux
+;; 	))
 
 
 ;; pdf tools
@@ -411,16 +515,25 @@
 			      
   ;; ...
 )
+;; (general-nvmap
+;;  "'" (general-simulate-keys "C-c")
+;;  "M-'" 'evil-goto-mark
+;;  "b" 'helm-buffers-list
+;;  ;; ...
+;;  )
+(setq org-archive-location "~/.org/agenda/archive.org::* From %s")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default)))
+ ;; '(org-agenda-files nil)
+ '(warning-suppress-types '((org-roam) (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Some usefull functions
