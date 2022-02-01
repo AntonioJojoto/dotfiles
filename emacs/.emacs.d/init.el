@@ -36,6 +36,7 @@
 (straight-use-package 'counsel)
 (straight-use-package 'ivy)
 (straight-use-package 'ivy-rich)
+(straight-use-package 'all-the-icons-ivy-rich)
 (straight-use-package 'helm-projectile)
 (straight-use-package 'helm-bibtex)
 (straight-use-package 'magit)
@@ -62,6 +63,7 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
+
 ;(add-to-list 'load-path "~/Gits/agenda-html")
 
 
@@ -209,6 +211,7 @@
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 (ivy-mode 1)
+(all-the-icons-ivy-rich-mode 1)
 
 ; set ivy hotkeys
 (global-set-key (kbd "C-s") 'swiper)
@@ -259,6 +262,33 @@
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
 
+;; org mode enhanced visuals
+(setq org-ellipsis " ▾")
+; We wont see the markers of italic, bold, etc.
+ (setq org-hide-emphasis-markers t) 
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))
+
+; change the rendering of the headings
+(dolist (face '((org-level-1 . 1.2)
+                      (org-level-2 . 1.1)
+                      (org-level-3 . 1.05)
+                      (org-level-4 . 1.0)
+                      (org-level-5 . 1.1)
+                      (org-level-6 . 1.1)
+                      (org-level-7 . 1.1)
+                      (org-level-8 . 1.1)))
+        (set-face-attribute (car face) nil :font "Iosevka Heavy" :weight 'medium :height (cdr face)))
+
+
+;; Replace list hyphen with dot
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+
 ; turn on 'org-indent-mode' by default
 (setq org-startup-indented t)
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
@@ -301,8 +331,7 @@
 (setq bibtex-completion-bibliography '("~/.org/references.bib"))
 
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 
 ;; Function to remove underscore from strings
 ; screenshots using flameshot
