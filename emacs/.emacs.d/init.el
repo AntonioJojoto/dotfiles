@@ -32,7 +32,6 @@
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-org)
 ; functionality
-(straight-use-package 'helm)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy)
 (straight-use-package 'ivy-rich)
@@ -155,9 +154,9 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 
 ;; evil mode
-(setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
 (require 'evil)
 (require 'evil-numbers)
+(setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
 (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
 (require 'evil-nerd-commenter)
@@ -207,27 +206,28 @@
 (setq python-shell-interpreter "python")
 
 ;; Use ivy for searching and launching
+;; And also helm
 (require 'ivy)
 (require 'ivy-rich)
 (ivy-rich-mode 1)
-(ivy-mode 1)
 (all-the-icons-ivy-rich-mode 1)
 
 ; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper-isearch)
-(global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "M-y") 'counsel-yank-pop)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "<f1> f") 'describe-function)
+(global-set-key (kbd "<f1> v") 'describe-variable)
 (global-set-key (kbd "C-c n") 'counsel-fzf)
-(global-set-key (kbd "C-c b") 'counsel-bookmark)
+(global-set-key (kbd "C-c p") 'counsel-descbinds)
 (global-set-key (kbd "C-c o") 'counsel-outline)
 (global-set-key (kbd "C-c t") 'counsel-load-theme)
-(global-set-key (kbd "C-x w") 'kill-buffer-and-window)
+; Helm key bindings
+(global-set-key (kbd "C-x k") 'kill-buffer)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "M-z") 'helm-all-mark-rings)
 
+(helm-mode 1)
 ;; projectile
 (projectile-mode 1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -416,7 +416,7 @@
   ;; evil-commenter
   "ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
   "cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
-  "cc" '(evilnc-copy-and-comment-lines :which-key "copy & comment")
+  "cc" '(nc-copy-and-comment-lines :which-key "copy & comment")
   "cp" '(evilnc-comment-or-uncomment-paragraphs :which-key "(un)comment parahraphs")
   "cr" '(comment-or-uncomment-region :which-key "(un)comment region")
   "cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
@@ -452,7 +452,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default)))
+   '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default))
+ '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
