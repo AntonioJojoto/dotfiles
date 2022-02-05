@@ -228,6 +228,7 @@
 (global-set-key (kbd "M-z") 'helm-all-mark-rings)
 (global-set-key (kbd "M-x") 'helm-M-x)
 
+
 (helm-mode 1)
 ;; projectile
 (projectile-mode 1)
@@ -368,16 +369,46 @@
 (setq org-roam-dailies-directory "journal/")
 (org-roam-setup)
 (setq org-roam-completion-system 'helm)
-(global-set-key (kbd "C-c r b") 'org-roam)
-(global-set-key (kbd "C-c r c") 'org-roam-capture)
 (global-set-key (kbd "C-c r d") 'org-roam-doctor)
 (global-set-key (kbd "C-c r f") 'org-roam-node-find)
 (global-set-key (kbd "C-c r g") 'org-roam-graph)
 (global-set-key (kbd "C-c r i") 'org-roam-node-insert)
-(global-set-key (kbd "C-c r m") 'org-roam-mode)
 (global-set-key (kbd "C-c r r") 'org-roam-find-ref)
-(global-set-key (kbd "C-c r t") 'org-roam-buffer-toggle-display)
+(global-set-key (kbd "C-c r b") 'org-roam-buffer-toggle)
+(global-set-key (kbd "C-c r c") 'org-id-get-create)
 
+; capture templates
+(setq org-roam-capture-templates
+      '(("m" "main" plain
+         "%?"
+         :if-new (file+head "main/${slug}.org"
+                            "#+title: ${title}\n")
+         :immediate-finish t
+         :unnarrowed t)
+        ("r" "reference" plain "%?"
+         :if-new
+         (file+head "reference/${title}.org" "#+title: ${title}\n")
+         :immediate-finish t
+         :unnarrowed t)
+        ("c" "clean" plain "%?"
+         :if-new
+         (file+head "articles/${title}.org" "#+title: ${title}\n")
+         :immediate-finish t
+         :unnarrowed t)))
+
+; Creating the propierty type in the nodes
+(cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))
+
+; Now the display shows the type of zettel and the tags
+(setq org-roam-node-display-template
+      (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
 
 ;; pdf tools
 (pdf-tools-install)
@@ -395,6 +426,14 @@
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
   "'" '(term :which-key "iterm")
+  ;; org roam
+  "aa" '(org-roam-alias-add :which-key "Roam Alias Add")
+  "ad" '(org-roam-alias-remove :which-key "Roam Alias Remove")
+  "ta" '(org-roam-tag-add :which-key "Roam Tag Add")
+  "td" '(org-roam-tag-remove :which-key "Roam Tag Remove")
+  "ra" '(org-roam-ref-add :which-key "Roam Ref Add")
+  "rd" '(org-roam-ref-remove :which-key "Roam Ref Remove")
+
   ;; magit
   "m" '(magit :which-key "magit")
   ;; Visual toggles
@@ -441,8 +480,8 @@
   "pg" '(helm-projectile-grep :which-key "grep in project")
   "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
   ;; ayuda para tomar apuntes
-  "ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
-  "af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
+  ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
+  ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
   
 			      
   ;; ...
