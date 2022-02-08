@@ -32,6 +32,7 @@
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-org)
 ; functionality
+(straight-use-package 'helm)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy)
 (straight-use-package 'ivy-rich)
@@ -224,12 +225,14 @@
 ; Helm key bindings
 (global-set-key (kbd "C-x k") 'kill-buffer)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-c b b") 'helm-bookmarks)
+(global-set-key (kbd "C-c b c") 'org-capture)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-z") 'helm-all-mark-rings)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-c") 'counsel-M-x)
 
 
-(helm-mode 1)
 ;; projectile
 (projectile-mode 1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -274,6 +277,25 @@
 (setq org-agenda-files '("~/.org/agenda/"))
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
+
+; org-archive
+(setq org-archive-location "~/.org/agenda/archive.org")
+; org-refile
+(setq org-refile-targets '((nil :maxlevel . 2)
+                                (org-agenda-files :maxlevel . 2)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t) 
+
+; org capture templates
+(setq org-capture-templates
+      '(("t" "Recordatorio" entry (file "~/.org/agenda/recordar.org")
+         "* TODO %?\n  %i\n  %a")
+        ("s" "Braindump" entry (file "~/.org/agenda/braindump.org")
+         "* TODO %?\n  %i\n  %a")
+	("c" "Cookbook" entry (file "~/.org/cookbook.org")
+         "* %^{Recipe title: }\n** Propierties\n- Servings: \n- Prep-Time: \n** Ingredients\n%?\n** Directions\n\n")))
+
+
 
 ;; org mode enhanced visuals
 (setq org-ellipsis " ▾")
@@ -434,6 +456,11 @@
   "ra" '(org-roam-ref-add :which-key "Roam Ref Add")
   "rd" '(org-roam-ref-remove :which-key "Roam Ref Remove")
 
+  "dt" '(org-roam-dailies-capture-today :which-key "Dailies Capture Today")
+  "dy" '(org-roam-dailies-capture-yesterday :which-key "Dailies Capture Yesterday")
+  "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
+  "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
+  "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
   ;; magit
   "m" '(magit :which-key "magit")
   ;; Visual toggles
@@ -493,7 +520,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default))
- '(warning-suppress-types '((comp))))
+ '(warning-suppress-types '((org-element-cache) (auto-save) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
