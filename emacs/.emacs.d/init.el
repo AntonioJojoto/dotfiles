@@ -64,9 +64,6 @@
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
 
-;(add-to-list 'load-path "~/Gits/agenda-html")
-
-
 
 (require 'cmake-mode)
 ;; documents
@@ -115,6 +112,12 @@
         (ispell-change-dictionary change)
         (message "Dictionary switched from %s to %s" dic change)
         ))
+
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
 
 ; Get the next spell error and prompts the correct possibilities
 ; When invoking commands that require some input arguments, run as interactively
@@ -198,7 +201,7 @@
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'lsp)
-(add-hook 'rust-mode-hook #'lsp)
+(add-hook 'elisp-mode-hook #'lsp)
 ; run  npm i -g bash-language-server
 (add-hook 'bash-mode-hook #'lsp)
 (setq lsp-enable-snippet t)
@@ -216,8 +219,6 @@
 ; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'describe-function)
-(global-set-key (kbd "<f1> v") 'describe-variable)
 (global-set-key (kbd "C-c n") 'counsel-fzf)
 (global-set-key (kbd "C-c p") 'counsel-descbinds)
 (global-set-key (kbd "C-c o") 'counsel-outline)
@@ -231,6 +232,11 @@
 (global-set-key (kbd "M-z") 'helm-all-mark-rings)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-c") 'counsel-M-x)
+
+; Helpful key bindings
+(global-set-key (kbd "<f1> f") 'describe-function)
+(global-set-key (kbd "<f1> v") 'describe-variable)
+
 
 
 ;; projectile
@@ -383,6 +389,9 @@
 			       (emacs-lisp . t)
 			       ))
 
+; do not ask for confirmation when running code blocks
+(setq org-confirm-babel-evaluate nil)
+
 
 ; org-roam
 (require 'org-roam)
@@ -416,6 +425,11 @@
          :if-new
          (file+head "articles/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
+         :unnarrowed t)
+	("u" "Uni" plain "%?"
+         :if-new
+         (file+head "Uni/${title}.org" "#+title: ${title}\n")
+         :immediate-finish t
          :unnarrowed t)))
 
 ; Creating the propierty type in the nodes
@@ -430,7 +444,7 @@
 
 ; Now the display shows the type of zettel and the tags
 (setq org-roam-node-display-template
-      (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+          (concat "${title:*} ${type:15}" (propertize "${tags:10}" 'face 'org-tag)))
 
 ;; pdf tools
 (pdf-tools-install)
