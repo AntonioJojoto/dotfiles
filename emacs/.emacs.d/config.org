@@ -1,10 +1,6 @@
-#+TITLE: My Emacs configuration
 
-* Packages
-*** Package Manager
-We will we using straight
+* Package Manager
 #+begin_src emacs-lisp
-  ;; Straight package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -17,158 +13,28 @@ We will we using straight
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
 #+end_src
 
-** Intall Packages
-*** Org Mode
+* Basic UI
+** Font
 #+begin_src emacs-lisp
-(straight-use-package 'org-bullets)
-(straight-use-package 'org-roam)
-;(straight-use-package 'org-roam-server)
-(straight-use-package 'org-attach-screenshot)
-(straight-use-package 'org-ref)
-(straight-use-package 'org-fragtog)
-#+end_src
-*** Evil Mode
-#+begin_src emacs-lisp
-(straight-use-package 'evil)
-(straight-use-package 'evil-snipe)
-(straight-use-package 'evil-numbers)
-(straight-use-package 'evil-leader)
-(straight-use-package 'evil-nerd-commenter)
-(straight-use-package 'evil-org)
+(set-face-attribute 'default nil :family "Iosevka" :height 140)
 #+end_src
 
-*** Functionality
+** Themes
 #+begin_src emacs-lisp
-(straight-use-package 'helm)
-(straight-use-package 'helm-projectile)
-;(straight-use-package 'helm-bibtex)
-(straight-use-package 'magit)
-(straight-use-package 'projectile)
-;(straight-use-package 'general)
-;(straight-use-package 'avy)
-(straight-use-package 'cheat-sh)
-#+end_src
-
-*** GUI
-#+begin_src emacs-lisp
-  (straight-use-package 'dashboard)
-  (straight-use-package 'which-key)
-  (straight-use-package 'all-the-icons)
-  (straight-use-package 'page-break-lines)
   (straight-use-package 'doom-themes)
-  (straight-use-package 'doom-modeline)
-  (straight-use-package 'dimmer)
+
+  (load-theme 'doom-material t)
+  (doom-modeline-mode 1)
+  (setq doom-modeline-height 45)
 #+end_src
 
-* GUI and Visual
-** Main GUI
-#+begin_src emacs-lisp
-;; hide GUI
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-#+end_src
-
-** Theme and bars
-We can check other themes on the fly by calling the command =load-theme=, also a list of available themes can be found on 
-#+begin_src emacs-lisp
-(load-theme 'doom-Iosvkem)
-(doom-modeline-mode 1)
-#+end_src
-
-** Scrolling AND Line numbering
-#+begin_src emacs-lisp
-  ;; scroll off
-  (setq scroll-margin 7)
-  (setq scroll-conservatively 999) ;; do not center when scrolling
-
-;; Line numbering
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)	; only show numbers in programming buffers
-(setq display-line-numbers-type 'relative)	
-#+end_src
-
-** Org Babel
-Load the following languages:
-+ Python
-+ Shell
-+ Lisp
-+ org
+** Dashboard
 
 #+begin_src emacs-lisp
-  (org-babel-do-load-languages 'org-babel-load-languages
-                             '((python . t)
-                               (shell .t)
-                               (emacs-lisp . t)
-                               (org . t)
-                               ))
-
-#+end_src
-
-#+RESULTS:
-
-Next, add some templates and enable the execution of source code without asking for permision. Finally, use =org-tempo= to enable the addition of templates with the < key followed by the trigger to expand the template.
-
-#+begin_src emacs-lisp
-  (require 'org-tempo)
-
-  ; add the templates
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-
-  ; enable execution without permission
-  (setq org-confirm-babel-evaluate nil)
-#+end_src
-
-#+RESULTS:
-
-
-* Other
-#+begin_src emacs-lisp
-  ;; evil mode
-  (setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
-  (require 'evil)
-  (require 'evil-numbers)
-  (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
-  (require 'evil-nerd-commenter)
-  (require 'evil-org)
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  (global-evil-leader-mode)
-  (evil-mode 1)
-  (evil-snipe-mode 1)
-
-
-  ;; helm mode
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-  (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (global-set-key (kbd "C-x b") 'helm-buffers-list) ;; List buffers ( Emacs way )
-  (global-set-key (kbd "C-x r b") 'helm-bookmarks) ;; Bookmarks menu
-  (global-set-key (kbd "C-x C-f") 'helm-find-files) ;; Finding files with Helm
-  (global-set-key (kbd "M-c") 'helm-calcul-expression) ;; Use Helm for calculations
-  (global-set-key (kbd "C-s") 'helm-occur)  ;; Replaces the default isearch keybinding
-  (global-set-key (kbd "C-h a") 'helm-apropos)  ;; Helmized apropos interface
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)  ;; Show kill ring, pick something to pastelm-mode 1)
-  (require 'helm-projectile)
-  (helm-projectile-on)
-
-  ;; projectile
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-  ;; which key
-  (require 'which-key)
-  (which-key-mode 1)
-
-  ;; dashboard
-  (require 'dashboard)
+   (straight-use-package 'dashboard)
+    
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-center-content t)
@@ -182,12 +48,15 @@ Next, add some templates and enable the execution of source code without asking 
                           (projects . 5)
                           (agenda . 5)
                           (registers . 5)))
-  ;; doom themes
-      (load-theme 'doom-gruvbox t)
+  ;
+#+end_src
 
+** Dimmer
+[[https://github.com/gonewest818/dimmer.el][dimmer]] provides a minor mode that indicates which buffer is currently active by dimming the faces in the other buffers. It does this nondestructively, and computes the dimmed faces dynamically such that your overall color scheme is shown in a muted form without requiring you to define what is a "dim" version of every face.
 
+#+begin_src emacs-lisp
+  (straight-use-package 'dimmer)
 
-  ;; dimmer
   (require 'dimmer)
   (dimmer-configure-which-key)
   (dimmer-configure-helm)
@@ -195,146 +64,82 @@ Next, add some templates and enable the execution of source code without asking 
   (dimmer-configure-which-key)
   (dimmer-configure-org)
   (dimmer-mode t)
+#+end_src
 
-  ;; org mode
-  (setq org-directory "~/.org") ; main org directory
+** Modeline
+[[https://github.com/seagle0128/doom-modeline][doom-modeline]] is the line used at the bottom of the screen.
 
-  ; turn on 'org-indent-mode' by default
-  (setq org-startup-indented t)
-  (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
-  (add-hook 'org-mode-hook 'visual-line-mode) 
-  (add-hook 'latex-mode-hook 'turn-on-cdlatex)
+#+begin_src emacs-lisp
+  (straight-use-package 'doom-modeline)
 
+  (doom-modeline-mode 1)
+  (setq doom-modeline-height 45)
+#+end_src
+** Other Visual Improvements
+- Line Highlighting
+- Show Matching Parenthesis
+  
+#+begin_src emacs-lisp
+  (straight-use-package 'page-break-lines)
+  (straight-use-package 'all-the-icons)
 
-  ; turn on org latex preview by default
-  (add-hook 'org-mode-hook 'org-fragtog-mode)
-  (add-hook 'org-mode-hook 'latex-preview-all) ; homemade function
-
-  ; scale to display org latex preview
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
-
-  ; update latex preview size with font size
-  (defun update-org-latex-fragments ()
-    (org-latex-preview '(64))
-    (plist-put org-format-latex-options :scale text-scale-mode-amount)
-    (org-latex-preview '(16)))
-  (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
-
-  ; org-ref and bibtex
-  ; place where the bibliografy will be stored
-  (require 'org-ref)
-  ; main .bib file
-  (setq reftex-default-bibliography '("~/.org/references.bib"))
-  (setq org-ref-default-bibliography '("~/.org/references.bib"))
-  ; folder where pdf will be downloaded
-  (setq org-ref-pdf- '("~/.org/bib_pdfs/"))
-  ; file where citation notes will be stored
-  (setq org-ref-bibliografy-notes '("~/.org/bib_notes.org"))
-  (setq org-latex-prefer-user-labels t)
-  (setq org-latex-pdf-process
-        '("pdflatex -interaction nonstopmode -output-directory %o %f"
-          "bibtex %b"
-          "pdflatex -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -interaction nonstopmode -output-directory %o %f"))
-
-  (require 'helm-bibtex)
-  (setq bibtex-completion-bibliography '("~/.org/references.bib"))
+  ;; hide GUI
+  (menu-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
 
 
-  (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;; Line highlighting
+  (global-hl-line-mode 0)
 
-  ;; Function to remove underscore from strings
-  ; screenshots using flameshot
-  (setq org-attach-screenshot-command-line "emacshot %f")    
-  (setq org-attach-screenshot-relative-links t)
-  (setq org-attach-screenshot-insertfunction
-        (lambda (linkfilename)
-         (insert (concat "#+CAPTION:" (substring linkfilename 7 -4) "\n[[file:"  (replace-regexp-in-string " " "_" linkfilename) "]]\n")) ))
+  ;; Show matching parenthesis
+  (show-paren-mode 1)
 
-  ; org-babel for souce blocks
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               '((python . t)
-                                 (C .t)
-                                 (emacs-lisp . t)
-                                 ))
+  ;; scroll off
+  (setq scroll-margin 7)
+  (setq scroll-conservatively 999) ;; do not center when scrolling
 
+  ;; disable bell
+  (setq ring-bell-function 'ignore)
 
-  ; org-roam
-  (require 'org-roam)
-  (setq org-roam-v2-ack t)
-  (setq org-roam-directory "~/.org/roam")
-  (org-roam-setup)
-  (setq org-roam-completion-system 'helm)
-  (global-set-key (kbd "C-c r b") 'org-roam)
-  (global-set-key (kbd "C-c r c") 'org-roam-capture)
-  (global-set-key (kbd "C-c r d") 'org-roam-doctor)
-  (global-set-key (kbd "C-c r f") 'org-roam-node-find)
-  (global-set-key (kbd "C-c r g") 'org-roam-graph)
-  (global-set-key (kbd "C-c r i") 'org-roam-node-insert)
-  (global-set-key (kbd "C-c r m") 'org-roam-mode)
-  (global-set-key (kbd "C-c r r") 'org-roam-find-ref)
-  (global-set-key (kbd "C-c r t") 'org-roam-buffer-toggle-display)
+  ;; Line numbering
+  ; only show numbers in programming buffers
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (setq display-line-numbers-type 'relative)	
 
-
-  ;; keybinds
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-    "'" '(term :which-key "iterm")
-    ;; magit
-    "m" '(magit :which-key "magit")
-    ;; buffers
-    "bn" '(evil-next-buffer :which-key "next buffer")
-    "bp" '(evil-previous-buffer :which-key "previous buffer")
-    "bd" '(evil-delete-buffer :which-key "delete buffer")
-    "bb" '(helm-buffers-list :which-key "change buffer")
-    ;; Visual toggles
-    "vl" '(display-line-numbers-mode :which-key "toggle line numbers")
-    "vt" '(toggle-truncate-lines :which-key "toggle truncated lines")
-    "vv" '(visual-line-mode :which-key "toggle visual mode")
-    ;; windows
-    "wj" '(evil-window-down :which-key "window down")
-    "wk" '(evil-window-up :which-key "window up")
-    "wh" '(evil-window-left :which-key "window left")
-    "wl" '(evil-window-right :which-key "window right")
-    "ws" '(evil-window-split :which-key "window split")
-    "wv" '(evil-window-vsplit :which-key "window vsplit")
-    "wd" '(evil-window-delete :which-key "window delete")
-    ;; tabs
-    "tn" '(tab-new :which-key "tab new")
-    "th" '(tab-previous :which-key "tab previous")
-    "tl" '(tab-next :which-key "tab next")
-    "tc" '(tab-close :which-key "tab close")
-    ;; evil-commenter
-    "ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
-    "cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
-    "cc" '(evilnc-copy-and-comment-lines :which-key "copy & comment")
-    "cp" '(evilnc-comment-or-uncomment-paragraphs :which-key "(un)comment parahraphs")
-    "cr" '(comment-or-uncomment-region :which-key "(un)comment region")
-    "cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
-    "\\" '(evilnc-comment-operator :which-key "comment operator")
-    ;; av
-    ";"  '(avy-goto-char-timer :which-key "avy char timer")
-        ;; term
-    "tt" '(term :which-key "shell")
-    ;; Dictionary
-    "sd" '(fd-switch-dictionary :which-key "toggle language")
-    "se" '(flyspell-mode :which-key "toggle flyspell ON/OFF")
-    "sh" '(f1 :which-key "previous spell error") 
-    "sl" '(f2 :which-key "next spell error")    
-    "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
-    ;; agenda files
-    "aa" '(org-agenda :which-key "open agenda menu")
-    ;; helm-projectile
-    "pp" '(helm-projectile-switch-project :which-key "switch project")
-    "pf" '(helm-projectile-find-file :which-key "find file")
-    "pd" '(helm-projectile-dir :which-key "find dir")
-    "pg" '(helm-projectile-grep :which-key "grep in project")
-    "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
-    ;; ayuda para tomar apuntes
-    "ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
-    "af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
+  ;; hide scroll bar in new frames
+  (defun my/disable-scroll-bars (frame)
+  (modify-frame-parameters frame
+                              '((vertical-scroll-bars . nil)
+                              (horizontal-scroll-bars . nil))))
+  (add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
 
 #+end_src
+
+* Evil Mode 
+Get vim-like functionality in emacs with [[https://github.com/emacs-evil/evil][evil]]. Then evil numbers
+    
+    #+begin_src emacs-lisp
+    (straight-use-package 'evil-nerd-commenter)
+    (straight-use-package 'evil-snipe)
+
+        (straight-use-package 'evil)
+    (straight-use-package 'evil-leader)
+    (straight-use-package 'evil-org)
+
+        (require 'evil)
+    (setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
+    (require 'evil-nerd-commenter)
+    (require 'evil-org)
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)
+    (global-evil-leader-mode)
+(evil-mode 1)
+(evil-snipe-mode 1)
+#+end_src
+
+** Evil Snipe
+
+** Evil Nerd commenter

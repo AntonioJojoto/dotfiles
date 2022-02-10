@@ -23,12 +23,13 @@
 (straight-use-package 'org-attach-screenshot)
 (straight-use-package 'org-ref)
 (straight-use-package 'org-fragtog)
+(straight-use-package 'org-roam-ui)
 
 ; evil-mode
 (straight-use-package 'evil)
 (straight-use-package 'evil-snipe)
-(straight-use-package 'evil-numbers)
 (straight-use-package 'evil-leader)
+(straight-use-package 'evil-numbers)
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-org)
 ; functionality
@@ -159,10 +160,7 @@
 
 ;; evil mode
 (require 'evil)
-(require 'evil-numbers)
 (setq evil-want-C-u-scroll t)   ; use C-u to scroll up in normal mode
-(define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt)
-(define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt)
 (require 'evil-nerd-commenter)
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
@@ -224,6 +222,7 @@
 (global-set-key (kbd "C-c o") 'counsel-outline)
 (global-set-key (kbd "C-c t") 'counsel-load-theme)
 ; Helm key bindings
+(helm-mode t)
 (global-set-key (kbd "C-x k") 'kill-buffer)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-c b b") 'helm-bookmarks)
@@ -408,6 +407,7 @@
 (global-set-key (kbd "C-c r b") 'org-roam-buffer-toggle)
 (global-set-key (kbd "C-c r c") 'org-id-get-create)
 
+
 ; capture templates
 (setq org-roam-capture-templates
       '(("m" "main" plain
@@ -430,6 +430,11 @@
          :if-new
          (file+head "Uni/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
+         :unnarrowed t)
+	("r" "Resumen" plain "%?"
+         :if-new
+         (file+head "clean_journal/${title}.org" "#+title: ${title}\n")
+         :immediate-finish t
          :unnarrowed t)))
 
 ; Creating the propierty type in the nodes
@@ -444,7 +449,8 @@
 
 ; Now the display shows the type of zettel and the tags
 (setq org-roam-node-display-template
-          (concat "${title:*} ${type:15}" (propertize "${tags:10}" 'face 'org-tag)))
+          (concat "${type:15} ${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
+
 
 ;; pdf tools
 (pdf-tools-install)
@@ -475,6 +481,8 @@
   "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
   "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
   "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
+  "gl" '(org-roam-dailies-goto-next-note :which-key "Dailies goto next note")
+  "gh" '(org-roam-dailies-goto-previous-note :which-key "Dailies goto previous note")
   ;; magit
   "m" '(magit :which-key "magit")
   ;; Visual toggles
@@ -534,7 +542,19 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default))
- '(warning-suppress-types '((org-element-cache) (auto-save) (comp))))
+ '(warning-suppress-log-types
+   '((websocket)
+     (websocket)
+     (websocket)
+     (org-element-cache)
+     (auto-save)
+     (comp)))
+ '(warning-suppress-types
+   '((websocket)
+     (websocket)
+     (org-element-cache)
+     (auto-save)
+     (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
