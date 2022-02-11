@@ -284,7 +284,9 @@
       org-agenda-start-day "-3d")
 
 ; org-archive
-(setq org-archive-location "~/.org/agenda/archive.org")
+(setq org-archive-location "~/.org/agenda/archive.org::* From %s")
+(global-set-key (kbd "<f1> v") 'org-archive-subtree-default)
+
 ; org-refile
 (setq org-refile-targets '((nil :maxlevel . 2)
                                 (org-agenda-files :maxlevel . 2)))
@@ -295,7 +297,7 @@
 (setq org-capture-templates
       '(("t" "Recordatorio" entry (file "~/.org/agenda/recordar.org")
          "* TODO %?\n  %i\n  %a")
-        ("s" "Braindump" entry (file "~/.org/agenda/braindump.org")
+        ("s" "Braindump" entry (file "~/.org/braindump.org")
          "* TODO %?\n  %i\n  %a")
 	("c" "Cookbook" entry (file "~/.org/cookbook.org")
          "* %^{Recipe title: }\n** Propierties\n- Servings: \n- Prep-Time: \n** Ingredients\n%?\n** Directions\n\n")))
