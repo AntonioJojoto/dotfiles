@@ -279,9 +279,15 @@
 
 ;; org mode
 (setq org-directory "~/.org") ; main org directory
+
+; org-agenda
 (setq org-agenda-files '("~/.org/agenda/"))
 (setq org-agenda-span 17
       org-agenda-start-day "-3d")
+
+;(setq org-agenda-start-with-log-mode t)
+;(setq org-log-done 'time)
+;(setq org-log-into-drawer t)
 
 ; org-archive
 (setq org-archive-location "~/.org/agenda/archive.org::* From %s")
@@ -425,7 +431,7 @@
          :unnarrowed t)
         ("c" "clean" plain "%?"
          :if-new
-         (file+head "articles/${title}.org" "#+title: ${title}\n")
+         (file+head "clean/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
          :unnarrowed t)
 	("u" "Uni" plain "%?"
@@ -433,7 +439,7 @@
          (file+head "Uni/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
          :unnarrowed t)
-	("r" "Resumen" plain "%?"
+	("e" "Resumen" plain "%?"
          :if-new
          (file+head "clean_journal/${title}.org" "#+title: ${title}\n")
          :immediate-finish t

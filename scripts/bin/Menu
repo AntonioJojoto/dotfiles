@@ -1,20 +1,13 @@
 #!/bin/bash
 
-sel=$(echo -e "Leer PDFs Universidad\nLeer Apuntes\nTomar Apuntes\nLibros\nVer Clase\nChuletas" | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -lines 10 -p "Que quieres hacer?") && echo $sel
+sel=$(echo -e "Leer PDFs Universidad\nVer clase\nLibros" | rofi -dmenu -theme Pop-Dark -font "Iosevka 14" -lines 10 -p "Que quieres hacer?") && echo $sel
 
 
 case $sel in
 	"Leer PDFs Universidad")
 		~/bin/find_3ro;;	
-	"Leer Apuntes")
-		~/bin/find_apunte;;
-	"Libros")
-		~/bin/find_book;;
-	"Tomar Apuntes")
-	    ~/bin/tomar_apunte;;
 	"Ver Clase")
 	    ~/bin/find_clase;;
-	"Chuletas")
-	    ~/bin/help-bindings;;
-	
+	"Libros")
+		~/bin/find_book;;
 esac
