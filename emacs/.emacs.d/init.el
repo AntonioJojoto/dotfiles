@@ -66,7 +66,7 @@
 (straight-use-package 'cmake-mode)
 
 ; AMPL in emacs
-(load-file "ampl-mode.elc")
+(load-file ".emacs.d/ampl-mode.elc")
 (setq auto-mode-alist
       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
 (setq auto-mode-alist
