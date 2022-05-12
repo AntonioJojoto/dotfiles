@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# List current tmux sessions and attach to the one selected
+
+selected_session=$(tmux list-sessions | awk -F ':' '{print $1}' | fzf)
+
+if [[ -z $selected_session ]]; then
+        exit 0
+fi
+
+tmux attach-session -t "$selected_session"
