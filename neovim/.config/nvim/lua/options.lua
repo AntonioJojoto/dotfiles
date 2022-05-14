@@ -34,6 +34,7 @@ vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "Iosevska:h16"               -- the font used in graphical neovim applications
 
+vim.cmd [[set laststatus=3]] -- Only use one statusbar when windows are openned
 vim.opt.shortmess:append "c"
 
 -- Using vimscript in Lua

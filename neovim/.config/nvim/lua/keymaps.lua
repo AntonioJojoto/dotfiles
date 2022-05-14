@@ -26,14 +26,18 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Use the simple default bindings for splitting, that is:
+-- C-w v for a vertical split 
+-- C-w v for a horizontal split 
+
 -- Opens default file explorer
 keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize +2<CR>", opts)
-keymap("n", "<C-Down>", ":resize -2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-K>", ":resize +2<CR>", opts)
+keymap("n", "<C-J>", ":resize -2<CR>", opts)
+keymap("n", "<C-H>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-L>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
@@ -59,7 +63,7 @@ keymap("v", "p", '"_dP', opts)  --
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+  keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
 -- Better terminal navigation
@@ -67,3 +71,13 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- Tabs --
+-- Open and close tabs
+keymap("n", "tn", ":tabnew<CR>", opts)
+keymap("n", "tc", ":tabclose<CR>", opts)
+-- Move to other tabs
+keymap("n", "th", ":tabNext<CR>", opts)
+keymap("n", "tl", ":tabprevious<CR>", opts)
+
+
