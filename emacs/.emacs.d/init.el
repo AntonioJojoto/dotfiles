@@ -81,7 +81,7 @@
 
 (require 'cmake-mode)
 ;; documents
-(straight-use-package 'pdf-tools)
+;; (straight-use-package 'pdf-tools)
 (straight-use-package 'auctex)
 (straight-use-package 'cdlatex)
 
@@ -382,11 +382,11 @@
 ; file where citation notes will be stored
 (setq org-ref-bibliografy-notes '("~/.org/bib_notes.org"))
 (setq org-latex-prefer-user-labels t)
-(setq org-latex-pdf-process
-      '("pdflatex -interaction nonstopmode -output-directory %o %f"
-	"bibtex %b"
-	"pdflatex -interaction nonstopmode -output-directory %o %f"
-	"pdflatex -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-pdf-process
+;;     '("pdflatex -interaction nonstopmode -output-directory %o %f"
+;;	"bibtex %b"
+;;	"pdflatex -interaction nonstopmode -output-directory %o %f"
+;;	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 (require 'helm-bibtex)
 (setq bibtex-completion-bibliography '("~/.org/references.bib"))
@@ -475,14 +475,15 @@
 
 
 ;; pdf tools
-(pdf-tools-install)
+;; (pdf-tools-install)
 ;; (evil-set-initial-state 'pdf-view-mode 'normal)
 
 ;; auctex
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      TeX-source-correlate-start-server t)
+;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+;;      TeX-source-correlate-start-server t)
+
 ; revert the PDF-buffer after the TeX compilation has finished
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+;; (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 ;; keybinds
 (general-define-key
