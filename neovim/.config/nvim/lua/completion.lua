@@ -1,3 +1,5 @@
+
+-- Require plugins for completion, cmp and luasnip
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
   return
@@ -10,12 +12,14 @@ end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
+-- Make supertab work better
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
-
+-- Icons, related with lsp
+-- find more here: https://www.nerdfonts.com/cheat-sheet
 --   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
@@ -44,7 +48,6 @@ local kind_icons = {
   Operator = "",
   TypeParameter = "",
 }
--- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
   snippet = {
@@ -53,16 +56,22 @@ cmp.setup {
     end,
   },
   mapping = {
+    -- To move in the menu
     ["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
+    -- Scrolling in the snippet window that is triggered
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    -- All available completions, not really usefull
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+
+    -- Exit the completion sellection window
     ["<C-e>"] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
+
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm { select = true },
@@ -95,6 +104,8 @@ cmp.setup {
       "s",
     }),
   },
+
+  -- How the completion menu works
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
