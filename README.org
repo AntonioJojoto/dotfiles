@@ -1,0 +1,25 @@
+* Alacritty
+No hay demasiadas cosas que saber sobre este emulador de terminal, ya que la mayoría del trabajo será hecho por tmux.
+
+* Tmux
+El multiplexer para el terminal llamado [[https://leimao.github.io/blog/Tmux-Tutorial/][tmux]] funciona perfectamente, pero de primeras puede ser un poco complicado de utilizar.
+
+El prefijo que vamos a usar siempre será =C-a=. Y dentro de tmux podremos usar =C-a s= y =C-a w= para entrar en un menú para seleccionar tanto las ventanas como las sesiones. Lo bueno que tienen estos menús es que nos permiten mirar la sesión antes de entrar.
+
+** Sesiones
+Lo primero que hay que aprender a utilizar en tmux son las sesiones, estas son muy parecidas a los usuarios de un ordenador, ya que podemos entrar y salir de ellas sin mucho esfuerzo. Para crear sesiones nuevas podemos utilizar el comando =tmux new -s nombre=, ahora si abrimos otro terminal podemos utilizar el comando ya creado =mux-attach= para ver las sesiones que tenemos creadas para entrar en alguna de ellas. Es importante saber que esto no deberíamos hacerlo dentro ya de tmux, porque no es buena idea tener *sesiones anidadas*. 
+
+** Ventanas o tabs
+Dentro de una sesion podemos crear bastantes ventanas o tab las cuales saldrán con su nombre abajo del terminal. Para crear nuevas ventanas podemos usar =M-N= y se abrira una nueva ventana en la misma ruta que tenía la ventana anterior, por otro lado =M-X= eliminará la ventana que tenemos abierta ahora mismo.
+
+Para movernos entre distintas ventanas, podemos usar =M= junto al número de la ventana para ir a donde queramos, también podemos ir de una a otra con =M-.= y =M-,= y las podremos mover con las mismas pero con =< y >=.
+
+Podemos renombrar tanto las sesiones como las ventanas con =M-r= para las ventanas y =M-R= para las sesiones.
+
+** Panes
+Las ventanas pueden ser separadas en panes o ventanas propiamente dichas. Es decir, podemos separar una tab en distintos panes.
+
+Para abrir un nuevo pane, tenemos que dividir la ventana actual en dos, lo podemos hacer tanto en horizontal con =M-s=
+como en vertical con =M-z=. 
+
+Después de abrir un pane, podemos movernos entre ellos utilizando las flechas junto con la tecla Alt, además si queremos solo centrarnos en un solo pane podemos usar =M-f=. Finalmente, si lo queremos podemos eliminar algun pane con =C-a x=.
