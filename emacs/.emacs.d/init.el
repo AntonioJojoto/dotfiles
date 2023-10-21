@@ -65,18 +65,6 @@
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
 
-; AMPL in emacs
-(load-file ".emacs.d/ampl-mode.elc")
-(setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-(autoload 'ampl-mode "ampl-mode" "Ampl editing mode." t)
 
 
 (require 'cmake-mode)
