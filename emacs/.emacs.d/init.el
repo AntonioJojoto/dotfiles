@@ -302,12 +302,19 @@
 
 ; org capture templates
 (setq org-capture-templates
-      '(("t" "Recordatorio" entry (file "~/.org/agenda/recordar.org")
-         "* TODO %?\n  %i\n  %a")
-        ("s" "Braindump" entry (file "~/.org/braindump.org")
-         "* TODO %?\n  %i\n  %a")
-	("c" "Cookbook" entry (file "~/.org/cookbook.org")
-         "* %^{Recipe title: }\n** Propierties\n- Servings: \n- Prep-Time: \n** Ingredients\n%?\n** Directions\n\n")))
+      ;; Algo que tenemos que hacer en un futuro, no ahora. Lo puedes hacer cuando te aburras por ejemplo.
+      '(("t" "TODO Someday" entry (file "~/.org/agenda/someday.org")
+         "* TODO %?\n  %i\n\n")
+        ("r" "Raw Exported Highlighs" entry (file "~/.org/raw.org")
+         "* From %?\n  %i\n\n")
+
+	("n" "TODO Fast" entry (file "~/.org/agenda/todo.org")
+         "* From %?\n  %i\n\n")
+
+	;; Inbox Notes
+        ("i" "Inbox" entry (file "~/.org/agenda/Inbox.org")
+         "* TODO %?\n  %i\n")
+	))
 
 
 
@@ -420,32 +427,37 @@
 
 ; capture templates
 (setq org-roam-capture-templates
-      '(("m" "main" plain
+      ;; Note summarizing a single idea, references other ones
+      '(("p" "Permanent note" plain
          "%?"
          :if-new (file+head "main/${slug}.org"
                             "#+title: ${title}\n")
          :immediate-finish t
          :unnarrowed t)
+
+	;; Literature notes: Condensed notes on a book
+	("l" "Literature Note" plain
+         "%?"
+         :if-new (file+head "literature/${slug}.org"
+                            "#+title: ${title}\n")
+         :immediate-finish t
+         :unnarrowed t)
+
+
+	;; Only a small reference to an idea or whatever
         ("r" "reference" plain "%?"
          :if-new
          (file+head "reference/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
          :unnarrowed t)
+
+	;; Clean, something to publish
         ("c" "clean" plain "%?"
          :if-new
          (file+head "clean/${title}.org" "#+title: ${title}\n")
          :immediate-finish t
          :unnarrowed t)
-	("u" "Uni" plain "%?"
-         :if-new
-         (file+head "Uni/${title}.org" "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)
-	("e" "Resumen" plain "%?"
-         :if-new
-         (file+head "clean_journal/${title}.org" "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)))
+	))
 
 ; Creating the propierty type in the nodes
 (cl-defmethod org-roam-node-type ((node org-roam-node))
