@@ -19,11 +19,11 @@
 ; org mode
 (straight-use-package 'org-bullets)
 (straight-use-package 'org-roam)
-;(straight-use-package 'org-roam-server)
 (straight-use-package 'org-attach-screenshot)
 (straight-use-package 'org-ref)
 (straight-use-package 'org-fragtog)
-(straight-use-package 'org-roam-ui)
+(straight-use-package 'consult-org-roam)
+
 
 ; evil-mode
 (straight-use-package 'evil)
@@ -419,6 +419,27 @@
 (global-set-key (kbd "C-c r b") 'org-roam-buffer-toggle)
 (global-set-key (kbd "C-c r c") 'org-id-get-create)
 
+;; searching the org-roam database
+(require 'consult-org-roam)
+;; Activate the minor mode
+(consult-org-roam-mode 1)
+;; Use `ripgrep' for searching with `consult-org-roam-search'
+(setq consult-org-roam-grep-func #'consult-ripgrep)
+;; Configure a custom narrow key for `consult-buffer'
+(setq consult-org-roam-buffer-narrow-key ?r)
+;; Display org-roam buffers right after non-org-roam buffers
+;; in consult-buffer (and not down at the bottom)
+(setq consult-org-roam-buffer-after-buffers t)
+;; Eventually suppress previewing for certain functions
+(consult-customize
+consult-org-roam-forward-links
+:preview-key "M-.")
+;; Define some convenient keybindings as an addition
+;; Este no vale de nada porque es como el de org-roam
+;; ("C-c n e" . consult-org-roam-file-find)
+;; ("C-c n b" . consult-org-roam-backlinks)
+;; ("C-c n l" . consult-org-roam-forward-links)
+;; ("C-c n r" . consult-org-roam-search))
 
 ; capture templates
 (setq org-roam-capture-templates
