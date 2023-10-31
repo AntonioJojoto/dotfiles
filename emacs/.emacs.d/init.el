@@ -213,7 +213,7 @@
 ; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "C-c n") 'counsel-fzf)
+(global-set-key (kbd "C-c n f") 'counsel-fzf)
 (global-set-key (kbd "C-c p") 'counsel-descbinds)
 (global-set-key (kbd "C-c o") 'counsel-outline)
 (global-set-key (kbd "C-c t") 'counsel-load-theme)
@@ -435,11 +435,12 @@
 consult-org-roam-forward-links
 :preview-key "M-.")
 ;; Define some convenient keybindings as an addition
-;; Este no vale de nada porque es como el de org-roam
-;; ("C-c n e" . consult-org-roam-file-find)
-;; ("C-c n b" . consult-org-roam-backlinks)
-;; ("C-c n l" . consult-org-roam-forward-links)
-;; ("C-c n r" . consult-org-roam-search))
+; Este no vale nada porque es como roam-find
+(global-set-key (kbd "C-c n g") 'consult-org-roam-file-find)
+(global-set-key (kbd "C-c n i") 'consult-org-roam-backlinks)
+(global-set-key (kbd "C-c n r") 'consult-org-roam-forward-links)
+(global-set-key (kbd "C-c n b") 'consult-org-roam-search)
+
 
 ; capture templates
 (setq org-roam-capture-templates
