@@ -54,12 +54,6 @@
 (straight-use-package 'dimmer)
 ; programming
 ;(straight-use-package 'flycheck)
-(straight-use-package 'lsp-mode
-		      :init
-		      (setq lsp-keymap-prefix "C-c l")
-		      )
-(straight-use-package 'lsp-ui)
-(straight-use-package 'lsp-python-ms)
 (straight-use-package 'company)
 (straight-use-package 'yasnippet)
 (straight-use-package 'yasnippet-snippets)
@@ -194,20 +188,20 @@
 
 (yas-global-mode 1)
 
-;; LSP
-(setq gc-cons-threshold 100000000) ; needed because communication generates a lot of garbage
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-(require 'lsp-mode)
-(add-hook 'c-mode-hook #'lsp)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'python-mode-hook #'lsp)
-(add-hook 'elisp-mode-hook #'lsp)
-; run  npm i -g bash-language-server
-(add-hook 'bash-mode-hook #'lsp)
-(setq lsp-enable-snippet t)
-(require 'lsp-python-ms)
-(setq lsp-python-ms-auto-install-server t)
-(setq python-shell-interpreter "python")
+;; LSP (delete later)
+;; (setq gc-cons-threshold 100000000) ; needed because communication generates a lot of garbage
+;; (setq read-process-output-max (* 1024 1024)) ;; 1mb
+;; (require 'lsp-mode)
+;; (add-hook 'c-mode-hook #'lsp)
+;; (add-hook 'c++-mode-hook #'lsp)
+;; (add-hook 'python-mode-hook #'lsp)
+;; (add-hook 'elisp-mode-hook #'lsp)
+;; ; run  npm i -g bash-language-server
+;; (add-hook 'bash-mode-hook #'lsp)
+;; (setq lsp-enable-snippet t)
+;; (require 'lsp-python-ms)
+;; (setq lsp-python-ms-auto-install-server t)
+;; (setq python-shell-interpreter "python")
 
 ;; Use ivy for searching and launching
 ;; And also helm
