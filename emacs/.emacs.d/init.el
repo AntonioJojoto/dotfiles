@@ -84,7 +84,8 @@
 (doom-modeline-mode 1)
 (setq doom-modeline-height 45)
 
-
+;; This is to prevent errors with syncthing 
+(setq create-lockfiles nil)
 
 ;; hide scroll bar in new frames
 (defun my/disable-scroll-bars (frame)
@@ -306,10 +307,10 @@
       '(("t" "TODO Someday" entry (file "~/.org/agenda/someday.org")
          "* TODO %?\n  %i\n\n")
         ("r" "Raw Exported Highlighs" entry (file "~/.org/raw.org")
-         "* From %?\n  %i\n\n")
-
+         "* TODO %?\n  %i\n\n")
+	;; Also includes a link to where the capture has been done
 	("n" "TODO Fast" entry (file "~/.org/agenda/todo.org")
-         "* From %?\n  %i\n\n")
+         "* TODO %?\n  %i\n %a\n")
 
 	;; Inbox Notes
         ("i" "Inbox" entry (file "~/.org/agenda/Inbox.org")
