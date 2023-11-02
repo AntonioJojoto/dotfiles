@@ -180,29 +180,16 @@
 
 ;; Yasnippet
 (require 'yasnippet)
-
-(setq yas-snippet-dirs
-      '("~/dotfiles/emacs/snippets"                 ;; personal snippets
-        "~/.emacs.d/straight/build/yasnippet-snippets/snippets"           ;; foo-mode and bar-mode snippet collection
-;;      "/path/to/yasnippet/yasmate/snippets" ;; the yasmate collection
-        ))
-
 (yas-global-mode 1)
 
-;; LSP (delete later)
-;; (setq gc-cons-threshold 100000000) ; needed because communication generates a lot of garbage
-;; (setq read-process-output-max (* 1024 1024)) ;; 1mb
-;; (require 'lsp-mode)
-;; (add-hook 'c-mode-hook #'lsp)
-;; (add-hook 'c++-mode-hook #'lsp)
-;; (add-hook 'python-mode-hook #'lsp)
-;; (add-hook 'elisp-mode-hook #'lsp)
-;; ; run  npm i -g bash-language-server
-;; (add-hook 'bash-mode-hook #'lsp)
-;; (setq lsp-enable-snippet t)
-;; (require 'lsp-python-ms)
-;; (setq lsp-python-ms-auto-install-server t)
-;; (setq python-shell-interpreter "python")
+;; Eglot and hooks
+(require 'eglot)
+(add-hook 'c-mode-hook #'eglot)
+(add-hook 'c++-mode-hook #'eglot)
+(add-hook 'python-mode-hook #'eglot)
+(add-hook 'elisp-mode-hook #'eglot)
+; run  npm i -g bash-language-server
+(add-hook 'bash-mode-hook #'eglot)
 
 ;; Use ivy for searching and launching
 ;; And also helm
