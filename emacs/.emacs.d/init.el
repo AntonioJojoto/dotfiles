@@ -142,6 +142,7 @@
   (goto-char init-point)) 
 
 
+
 ;; font size
 (set-face-attribute 'default nil :family "Iosevka" :height 140)
 
