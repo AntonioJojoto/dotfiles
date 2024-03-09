@@ -278,25 +278,24 @@
 (global-set-key (kbd "<f1> v") 'org-archive-subtree-default)
 
 ; org-refile
-(setq org-refile-targets '((nil :maxlevel . 2)
-                                (org-agenda-files :maxlevel . 2)))
+(setq org-refile-targets '(("~/.org/agenda/todo.org" :maxlevel . 1)))
+
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t) 
 
 ; org capture templates
 (setq org-capture-templates
-      ;; Algo que tenemos que hacer en un futuro, no ahora. Lo puedes hacer cuando te aburras por ejemplo.
-      '(("t" "TODO Someday" entry (file "~/.org/agenda/someday.org")
-         "* TODO %?\n  %i\n\n")
-        ("r" "Raw Exported Highlighs" entry (file "~/.org/raw.org")
-         "* TODO %?\n  %i\n\n")
-	;; Also includes a link to where the capture has been done
-	("n" "TODO Fast" entry (file "~/.org/agenda/todo.org")
-         "* TODO %?\n  %i\n %a\n")
+      '(	;; Also includes a link to where the capture has been done
 
 	;; Inbox Notes
         ("i" "Inbox" entry (file "~/.org/agenda/Inbox.org")
          "* TODO %?\n  %i\n")
+
+	;; Inbox with link (useful for code or things in roam)
+        ("l" "Inbox with link" entry (file "~/.org/agenda/Inbox.org")
+         "* TODO %?\n  %i\n")
+
+
 	))
 
 
@@ -504,13 +503,18 @@ consult-org-roam-forward-links
   "ra" '(org-roam-ref-add :which-key "Roam Ref Add")
   "rd" '(org-roam-ref-remove :which-key "Roam Ref Remove")
 
-  "dt" '(org-roam-dailies-capture-today :which-key "Dailies Capture Today")
-  "dy" '(org-roam-dailies-capture-yesterday :which-key "Dailies Capture Yesterday")
-  "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
-  "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
-  "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
-  "gl" '(org-roam-dailies-goto-next-note :which-key "Dailies goto next note")
-  "gh" '(org-roam-dailies-goto-previous-note :which-key "Dailies goto previous note")
+  ;; GTD Workflow
+
+  ;; Not currently using org-roam for daily notes
+  ;; "dt" '(org-roam-dailies-capture-today :which-key "Dailies Capture Today")
+  ;; "dy" '(org-roam-dailies-capture-yesterday :which-key "Dailies Capture Yesterday")
+  ;; "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
+  ;; "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
+  ;; "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
+  ;; "gl" '(org-roam-dailies-goto-next-note :which-key "Dailies goto next note")
+  ;; "gh" '(org-roam-dailies-goto-previous-note :which-key "Dailies goto previous note")
+
+
   ;; magit
   "m" '(magit :which-key "magit")
   ;; Visual toggles
