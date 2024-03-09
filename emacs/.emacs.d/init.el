@@ -23,7 +23,13 @@
 (straight-use-package 'org-ref)
 (straight-use-package 'org-fragtog)
 (straight-use-package 'consult-org-roam)
+(straight-use-package 'org-roam-ui)
 
+;; org roam ui configuration
+(setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t
+	org-roam-ui-open-on-start t)
 
 ; evil-mode
 (straight-use-package 'evil)
@@ -43,7 +49,6 @@
 (straight-use-package 'magit)
 (straight-use-package 'projectile)
 (straight-use-package 'general)
-(straight-use-package 'cheat-sh)
 ; gui
 (straight-use-package 'dashboard)
 (straight-use-package 'which-key)
@@ -59,7 +64,7 @@
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
 
-
+star
 
 (require 'cmake-mode)
 ;; documents
