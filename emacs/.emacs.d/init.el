@@ -64,8 +64,6 @@
 (straight-use-package 'yasnippet-snippets)
 (straight-use-package 'cmake-mode)
 
-star
-
 (require 'cmake-mode)
 ;; documents
 ;; (straight-use-package 'pdf-tools)
@@ -105,7 +103,6 @@ star
 (setq display-line-numbers-type 'relative)		; relative line numbers
 
 ;; Linebreaks
-
 ;; Spellcheck
 (defun fd-switch-dictionary()
       (interactive)
@@ -178,10 +175,13 @@ star
 (with-eval-after-load 'company)
   ;; (define-key company-active-map (kbd "M-n") nil)
   ;; (define-key company-active-map (kbd "M-p") nil)
-  ;; (define-key company-active-map (kbd "C-n") #'company-select-next)
-  ;; (define-key company-active-map (kbd "C-p") #'company-select-previous))
+(define-key company-active-map (kbd "C-n") #'company-select-next)
+(define-key company-active-map (kbd "C-p") #'company-select-previous)
 (add-hook 'after-init-hook 'global-company-mode)
 (define-key global-map (kbd "C-.") 'company-files)
+
+; Comprany backends (where company gets the search results)
+(setq company-backends '((company-capf company-dabbrev-code company-yasnippet)))
 
 ;; Yasnippet
 (require 'yasnippet)
@@ -283,7 +283,10 @@ star
 (global-set-key (kbd "<f1> v") 'org-archive-subtree-default)
 
 ; org-refile
-(setq org-refile-targets '(("~/.org/agenda/todo.org" :maxlevel . 1)))
+(setq org-refile-targets '(
+			   ("~/.org/agenda/todo.org" :maxlevel . 1)
+			   ("~/.org/agenda/someday.org" :maxlevel . 1)
+			   ))
 
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t) 
@@ -297,9 +300,18 @@ star
          "* TODO %?\n  %i\n")
 
 	;; Inbox with link (useful for code or things in roam)
+	;; that is what %a does
         ("l" "Inbox with link" entry (file "~/.org/agenda/Inbox.org")
+         "* TODO %?\n  %i\n %a")
+
+	;; someday Notes
+        ("o" "someday" entry (file "~/.org/agenda/someday.org")
          "* TODO %?\n  %i\n")
 
+	;; someday with link (useful for code or things in roam)
+	;; that is what %a does
+        (";" "someday with link" entry (file "~/.org/agenda/someday.org")
+         "* TODO %?\n  %i\n %a")
 
 	))
 
@@ -534,11 +546,13 @@ consult-org-roam-forward-links
   "ws" '(evil-window-split :which-key "window split")
   "wv" '(evil-window-vsplit :which-key "window vsplit")
   "wd" '(evil-window-delete :which-key "window delete")
+
   ;; tabs
   "tn" '(tab-new :which-key "tab new")
   "th" '(tab-previous :which-key "tab previous")
   "tl" '(tab-next :which-key "tab next")
   "tc" '(tab-close :which-key "tab close")
+
   ;; evil-commenter
   "ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
   "cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
@@ -547,18 +561,23 @@ consult-org-roam-forward-links
   "cr" '(comment-or-uncomment-region :which-key "(un)comment region")
   "cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
   "\\" '(evilnc-comment-operator :which-key "comment operator")
+
   ;; avy
   ";"  '(avy-goto-char-timer :which-key "avy char timer")
+
   ;; term
   "tt" '(term :which-key "shell")
+
   ;; Dictionary
   "sd" '(fd-switch-dictionary :which-key "toggle language")
   "se" '(flyspell-mode :which-key "toggle flyspell ON/OFF")
   "sh" '(f1 :which-key "previous spell error") 
   "sl" '(f2 :which-key "next spell error")    
   "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
+
   ;; agenda files
   "aa" '(org-agenda :which-key "open agenda menu")
+
   ;; helm-projectile
   "pp" '(helm-projectile-switch-project :which-key "switch project")
   "pf" '(helm-projectile-find-file :which-key "find file")
@@ -569,32 +588,18 @@ consult-org-roam-forward-links
   ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
   ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
   
+  ;; help in emacs
 			      
   ;; ...
 )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e8df30cd7fb42e56a4efc585540a2e63b0c6eeb9f4dc053373e05d774332fc13" "a9a67b318b7417adbedaab02f05fa679973e9718d9d26075c6235b1f0db703c8" default))
- '(warning-suppress-log-types
-   '((websocket)
-     (websocket)
-     (websocket)
-     (org-element-cache)
-     (auto-save)
-     (comp)))
- '(warning-suppress-types
-   '((websocket)
-     (websocket)
-     (org-element-cache)
-     (auto-save)
-     (comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+;; Other keybidings
+; Save the init.el file and reloads emacs
+(global-set-key (kbd "C-c k r") (lambda () (interactive)
+                             (let ((init-file "~/.emacs.d/init.el"))
+                               (if (equal (buffer-file-name) (expand-file-name init-file))
+                                   (save-buffer)
+                                 (with-temp-buffer
+                                   (find-file init-file)
+                                   (save-buffer))))
+                             (load-file "~/.emacs.d/init.el")))
