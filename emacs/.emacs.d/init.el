@@ -38,8 +38,10 @@
 (straight-use-package 'evil-numbers)
 (straight-use-package 'evil-nerd-commenter)
 (straight-use-package 'evil-org)
+
 ; functionality
 (straight-use-package 'helm)
+(straight-use-package 'consult)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy)
 (straight-use-package 'ivy-rich)
@@ -49,6 +51,7 @@
 (straight-use-package 'magit)
 (straight-use-package 'projectile)
 (straight-use-package 'general)
+
 ; gui
 (straight-use-package 'dashboard)
 (straight-use-package 'which-key)
@@ -57,6 +60,7 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'dimmer)
+
 ; programming
 ;(straight-use-package 'flycheck)
 (straight-use-package 'company)
@@ -182,6 +186,8 @@
 
 ; Comprany backends (where company gets the search results)
 (setq company-backends '((company-capf company-dabbrev-code company-yasnippet)))
+(setq company-dabbrev-minimum-length 2)
+
 
 ;; Yasnippet
 (require 'yasnippet)
@@ -446,6 +452,8 @@ consult-org-roam-forward-links
 (global-set-key (kbd "C-c n b") 'consult-org-roam-search)
 
 
+
+
 ; capture templates
 (setq org-roam-capture-templates
       ;; Note summarizing a single idea, references other ones
@@ -595,7 +603,7 @@ consult-org-roam-forward-links
 
 ;; Other keybidings
 ; Save the init.el file and reloads emacs
-(global-set-key (kbd "C-c k r") (lambda () (interactive)
+(global-set-key (kbd "C-c e i") (lambda () (interactive)
                              (let ((init-file "~/.emacs.d/init.el"))
                                (if (equal (buffer-file-name) (expand-file-name init-file))
                                    (save-buffer)
@@ -603,3 +611,26 @@ consult-org-roam-forward-links
                                    (find-file init-file)
                                    (save-buffer))))
                              (load-file "~/.emacs.d/init.el")))
+
+; Evaluation of emacs code
+;; C-x C-e eval just one line of code
+(global-set-key (kbd "C-c e f") 'eval-defun)
+(global-set-key (kbd "C-c e r") 'eval-region)
+(global-set-key (kbd "C-c e b") 'eval-buffer)
+
+
+;; Useful functions
+
+; Function that saves all org buffers, we don't want to run this on code.
+; may be run every two minutes
+(defun save-all-org-buffers ()
+  (interactive)
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when (and (buffer-file-name) ; Check if buffer is associated with a file
+                 (string= (file-name-extension (buffer-file-name)) "org")
+                 (buffer-modified-p))
+        (save-buffer)))))
+
+(run-with-timer 0 120 'save-all-org-buffers)
+(put 'downcase-region 'disabled nil)
