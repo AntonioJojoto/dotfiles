@@ -25,6 +25,9 @@
 (straight-use-package 'consult-org-roam)
 (straight-use-package 'org-roam-ui)
 
+
+(load-file "~/.emacs.d/sessions.el")
+
 ;; org roam ui configuration
 (setq org-roam-ui-sync-theme t
 	org-roam-ui-follow t
@@ -597,7 +600,10 @@ consult-org-roam-forward-links
   ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
   ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
   
-  ;; 
+  ;; session manager 
+  "sn" '(sessions-set-name :which-key "Set session name")
+  "sz" '(sessions-save :which-key "Save session")
+  "sa" '(sessions-open :which-key "Open Session")
 			      
   ;; ...
 )
@@ -638,7 +644,6 @@ consult-org-roam-forward-links
 (put 'downcase-region 'disabled nil)
 
 ;; sesion manager
-(load-file "~/.emacs.d/sessions.el")
 
 ;; auto save on emacs exit (killing the window)
 (add-hook 'delete-frame-functions (lambda () (sessions-close)))
