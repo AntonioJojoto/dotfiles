@@ -1,16 +1,16 @@
 ;; Straight package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+    (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+    (bootstrap-version 5))
+(unless (file-exists-p bootstrap-file)
+(with-current-buffer
+    (url-retrieve-synchronously
+	"https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	'silent 'inhibit-cookies)
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+(load bootstrap-file nil 'nomessage))
 
 ;; packages
 ; shallow clones not working properly right now
@@ -30,9 +30,9 @@
 
 ;; org roam ui configuration
 (setq org-roam-ui-sync-theme t
-	org-roam-ui-follow t
-	org-roam-ui-update-on-save t
-	org-roam-ui-open-on-start t)
+    org-roam-ui-follow t
+    org-roam-ui-update-on-save t
+    org-roam-ui-open-on-start t)
 
 ; evil-mode
 (straight-use-package 'evil)
@@ -93,9 +93,9 @@
 
 ;; hide scroll bar in new frames
 (defun my/disable-scroll-bars (frame)
-  (modify-frame-parameters frame
-                           '((vertical-scroll-bars . nil)
-                             (horizontal-scroll-bars . nil))))
+(modify-frame-parameters frame
+			'((vertical-scroll-bars . nil)
+			    (horizontal-scroll-bars . nil))))
 (add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
 
 ;; scroll off
@@ -112,12 +112,12 @@
 ;; Linebreaks
 ;; Spellcheck
 (defun fd-switch-dictionary()
-      (interactive)
-      (let* ((dic ispell-current-dictionary)
-    	 (change (if (string= dic "es") "english" "es")))
-        (ispell-change-dictionary change)
-        (message "Dictionary switched from %s to %s" dic change)
-        ))
+    (interactive)
+    (let* ((dic ispell-current-dictionary)
+	(change (if (string= dic "es") "english" "es")))
+    (ispell-change-dictionary change)
+    (message "Dictionary switched from %s to %s" dic change)
+    ))
 
 (require 'org-tempo)
 
@@ -128,27 +128,27 @@
 ; Get the next spell error and prompts the correct possibilities
 ; When invoking commands that require some input arguments, run as interactively
 (defun f1()
-  (interactive)
-  (call-interactively 'evil-prev-flyspell-error) ; go to the next error
-  (call-interactively 'ispell-word))             ; and prompt the correction
+(interactive)
+(call-interactively 'evil-prev-flyspell-error) ; go to the next error
+(call-interactively 'ispell-word))             ; and prompt the correction
 
 ; Get the next spell error and prompts the correct possibilities
 (defun f2()
-  (interactive)
-  (call-interactively 'evil-next-flyspell-error) ; go to the next error
-  (call-interactively 'ispell-word))             ; and prompt the correction
+(interactive)
+(call-interactively 'evil-next-flyspell-error) ; go to the next error
+(call-interactively 'ispell-word))             ; and prompt the correction
 
 ;; Preview all latex fragments
 (defun latex-preview-all()
-  (interactive)
-  (setq init-point (point)) ; This is where we start
-  (goto-char 1) ; Go to the beginning of the document
-  (while (< (point) (point-max)) ; Until the end of the document is reached
-    (call-interactively 'org-next-visible-heading) ; Go to the next heading
-    (call-interactively 'org-latex-preview) ; Preview the whole heading
-    )
-  ; Go to the point at which the function was called
-  (goto-char init-point)) 
+(interactive)
+(setq init-point (point)) ; This is where we start
+(goto-char 1) ; Go to the beginning of the document
+(while (< (point) (point-max)) ; Until the end of the document is reached
+(call-interactively 'org-next-visible-heading) ; Go to the next heading
+(call-interactively 'org-latex-preview) ; Preview the whole heading
+)
+; Go to the point at which the function was called
+(goto-char init-point)) 
 
 
 
@@ -180,8 +180,8 @@
 ;; Company
 (require 'company)
 (with-eval-after-load 'company)
-  ;; (define-key company-active-map (kbd "M-n") nil)
-  ;; (define-key company-active-map (kbd "M-p") nil)
+;; (define-key company-active-map (kbd "M-n") nil)
+;; (define-key company-active-map (kbd "M-p") nil)
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -256,10 +256,10 @@
 (setq dashboard-projects-backend 'projectile)
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 (setq dashboard-items '((recents  . 5)
-                        (bookmarks . 5)
-                        (projects . 5)
-                        (agenda . 5)
-                        (registers . 5)))
+		    (bookmarks . 5)
+		    (projects . 5)
+		    (agenda . 5)
+		    (registers . 5)))
 
 ;; avy
 (avy-setup-default)
@@ -282,7 +282,7 @@
 ; org-agenda
 (setq org-agenda-files '("~/.org/agenda/"))
 (setq org-agenda-span 17
-      org-agenda-start-day "-3d")
+    org-agenda-start-day "-3d")
 
 ;(setq org-agenda-start-with-log-mode t)
 ;(setq org-log-done 'time)
@@ -294,43 +294,43 @@
 
 ; org-refile
 (setq org-refile-targets '(
-			   ("~/.org/agenda/todo.org" :maxlevel . 1)
-			   ("~/.org/agenda/someday.org" :maxlevel . 1)
-			   ))
+			("~/.org/agenda/todo.org" :maxlevel . 1)
+			("~/.org/agenda/someday.org" :maxlevel . 1)
+			))
 
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t) 
 
 ; org capture templates
 (setq org-capture-templates
-      '(	;; Also includes a link to where the capture has been done
+    '(	;; Also includes a link to where the capture has been done
 
-	;; Inbox Notes
-        ("i" "Inbox" entry (file "~/.org/agenda/Inbox.org")
-         "* TODO %?\n  %i\n")
+    ;; Inbox Notes
+    ("i" "Inbox" entry (file "~/.org/agenda/Inbox.org")
+	"* TODO %?\n  %i\n")
 
-	;; Inbox with link (useful for code or things in roam)
-	;; that is what %a does
-        ("l" "Inbox with link" entry (file "~/.org/agenda/Inbox.org")
-         "* TODO %?\n  %i\n %a")
+    ;; Inbox with link (useful for code or things in roam)
+    ;; that is what %a does
+    ("l" "Inbox with link" entry (file "~/.org/agenda/Inbox.org")
+	"* TODO %?\n  %i\n %a")
 
-	;; someday Notes
-        ("o" "someday" entry (file "~/.org/agenda/someday.org")
-         "* TODO %?\n  %i\n")
+    ;; someday Notes
+    ("o" "someday" entry (file "~/.org/agenda/someday.org")
+	"* TODO %?\n  %i\n")
 
-	;; someday with link (useful for code or things in roam)
-	;; that is what %a does
-        (";" "someday with link" entry (file "~/.org/agenda/someday.org")
-         "* TODO %?\n  %i\n %a")
+    ;; someday with link (useful for code or things in roam)
+    ;; that is what %a does
+    (";" "someday with link" entry (file "~/.org/agenda/someday.org")
+	"* TODO %?\n  %i\n %a")
 
-	))
+    ))
 
 
 
 ;; org mode enhanced visuals
 (setq org-ellipsis " ▾")
 ; We wont see the markers of italic, bold, etc.
- (setq org-hide-emphasis-markers t) 
+(setq org-hide-emphasis-markers t) 
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -338,20 +338,20 @@
 
 ; change the rendering of the headings
 (dolist (face '((org-level-1 . 1.2)
-                      (org-level-2 . 1.1)
-                      (org-level-3 . 1.05)
-                      (org-level-4 . 1.0)
-                      (org-level-5 . 1.1)
-                      (org-level-6 . 1.1)
-                      (org-level-7 . 1.1)
-                      (org-level-8 . 1.1)))
-        (set-face-attribute (car face) nil :font "Iosevka Heavy" :weight 'medium :height (cdr face)))
+		    (org-level-2 . 1.1)
+		    (org-level-3 . 1.05)
+		    (org-level-4 . 1.0)
+		    (org-level-5 . 1.1)
+		    (org-level-6 . 1.1)
+		    (org-level-7 . 1.1)
+		    (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Iosevka Heavy" :weight 'medium :height (cdr face)))
 
 
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
-                        '(("^ *\\([-]\\) "
-                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+		    '(("^ *\\([-]\\) "
+			(0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 
 ; turn on 'org-indent-mode' by default
@@ -370,9 +370,9 @@
 
 ; update latex preview size with font size
 (defun update-org-latex-fragments ()
-  (org-latex-preview '(64))
-  (plist-put org-format-latex-options :scale text-scale-mode-amount)
-  (org-latex-preview '(16)))
+(org-latex-preview '(64))
+(plist-put org-format-latex-options :scale text-scale-mode-amount)
+(org-latex-preview '(16)))
 (add-hook 'text-scale-mode-hook 'update-org-latex-fragments)
 
 ; org-ref and bibtex
@@ -403,16 +403,16 @@
 (setq org-attach-screenshot-command-line "emacshot %f")    
 (setq org-attach-screenshot-relative-links t)
 (setq org-attach-screenshot-insertfunction
-      (lambda (linkfilename)
-       (insert (concat "#+CAPTION:" (substring linkfilename 7 -4) "\n[[file:"  (replace-regexp-in-string " " "_" linkfilename) "]]\n")) ))
+    (lambda (linkfilename)
+    (insert (concat "#+CAPTION:" (substring linkfilename 7 -4) "\n[[file:"  (replace-regexp-in-string " " "_" linkfilename) "]]\n")) ))
 
 ; org-babel for souce blocks
 (org-babel-do-load-languages 'org-babel-load-languages
-			     '((python . t)
-			       (C .t)
-			       (emacs-lisp . t)
-			       (shell . t)
-			       ))
+			    '((python . t)
+			    (C .t)
+			    (emacs-lisp . t)
+			    (shell . t)
+			    ))
 
 ; do not ask for confirmation when running code blocks
 (setq org-confirm-babel-evaluate nil)
@@ -456,55 +456,56 @@ consult-org-roam-forward-links
 (global-set-key (kbd "C-c n b") 'consult-org-roam-search)
 
 
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)  ;; Show kill ring, pick something to pastelm-mode 1)
 
 
 ; capture templates
 (setq org-roam-capture-templates
-      ;; Note summarizing a single idea, references other ones
-      '(("p" "Permanent note" plain
-         "%?"
-         :if-new (file+head "main/${slug}.org"
-                            "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)
+    ;; Note summarizing a single idea, references other ones
+    '(("p" "Permanent note" plain
+	"%?"
+	:if-new (file+head "main/${slug}.org"
+			"#+title: ${title}\n")
+	:immediate-finish t
+	:unnarrowed t)
 
-	;; Literature notes: Condensed notes on a book
-	("l" "Literature Note" plain
-         "%?"
-         :if-new (file+head "literature/${slug}.org"
-                            "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)
+    ;; Literature notes: Condensed notes on a book
+    ("l" "Literature Note" plain
+	"%?"
+	:if-new (file+head "literature/${slug}.org"
+			"#+title: ${title}\n")
+	:immediate-finish t
+	:unnarrowed t)
 
 
-	;; Only a small reference to an idea or whatever
-        ("r" "reference" plain "%?"
-         :if-new
-         (file+head "reference/${title}.org" "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)
+    ;; Only a small reference to an idea or whatever
+    ("r" "reference" plain "%?"
+	:if-new
+	(file+head "reference/${title}.org" "#+title: ${title}\n")
+	:immediate-finish t
+	:unnarrowed t)
 
-	;; Clean, something to publish
-        ("c" "clean" plain "%?"
-         :if-new
-         (file+head "clean/${title}.org" "#+title: ${title}\n")
-         :immediate-finish t
-         :unnarrowed t)
-	))
+    ;; Clean, something to publish
+    ("c" "clean" plain "%?"
+	:if-new
+	(file+head "clean/${title}.org" "#+title: ${title}\n")
+	:immediate-finish t
+	:unnarrowed t)
+    ))
 
 ; Creating the propierty type in the nodes
 (cl-defmethod org-roam-node-type ((node org-roam-node))
-  "Return the TYPE of NODE."
-  (condition-case nil
-      (file-name-nondirectory
-       (directory-file-name
-        (file-name-directory
-         (file-relative-name (org-roam-node-file node) org-roam-directory))))
-    (error "")))
+"Return the TYPE of NODE."
+(condition-case nil
+    (file-name-nondirectory
+    (directory-file-name
+    (file-name-directory
+	(file-relative-name (org-roam-node-file node) org-roam-directory))))
+(error "")))
 
 ; Now the display shows the type of zettel and the tags
 (setq org-roam-node-display-template
-          (concat "${type:15} ${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
+	(concat "${type:15} ${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
 
 
 ;; pdf tools
@@ -520,104 +521,104 @@ consult-org-roam-forward-links
 
 ;; keybinds
 (general-define-key
- :states '(normal visual insert emacs)
- :prefix "SPC"
- :non-normal-prefix "M-SPC"
-  "'" '(term :which-key "iterm")
-  ;; org roam
-  "aa" '(org-roam-alias-add :which-key "Roam Alias Add")
-  "ad" '(org-roam-alias-remove :which-key "Roam Alias Remove")
-  "ta" '(org-roam-tag-add :which-key "Roam Tag Add")
-  "td" '(org-roam-tag-remove :which-key "Roam Tag Remove")
-  "ra" '(org-roam-ref-add :which-key "Roam Ref Add")
-  "rd" '(org-roam-ref-remove :which-key "Roam Ref Remove")
+:states '(normal visual insert emacs)
+:prefix "SPC"
+:non-normal-prefix "M-SPC"
+"'" '(term :which-key "iterm")
+;; org roam
+"aa" '(org-roam-alias-add :which-key "Roam Alias Add")
+"ad" '(org-roam-alias-remove :which-key "Roam Alias Remove")
+"ta" '(org-roam-tag-add :which-key "Roam Tag Add")
+"td" '(org-roam-tag-remove :which-key "Roam Tag Remove")
+"ra" '(org-roam-ref-add :which-key "Roam Ref Add")
+"rd" '(org-roam-ref-remove :which-key "Roam Ref Remove")
 
-  ;; GTD Workflow
+;; GTD Workflow
 
-  ;; Not currently using org-roam for daily notes
-  ;; "dt" '(org-roam-dailies-capture-today :which-key "Dailies Capture Today")
-  ;; "dy" '(org-roam-dailies-capture-yesterday :which-key "Dailies Capture Yesterday")
-  ;; "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
-  ;; "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
-  ;; "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
-  ;; "gl" '(org-roam-dailies-goto-next-note :which-key "Dailies goto next note")
-  ;; "gh" '(org-roam-dailies-goto-previous-note :which-key "Dailies goto previous note")
+;; Not currently using org-roam for daily notes
+;; "dt" '(org-roam-dailies-capture-today :which-key "Dailies Capture Today")
+;; "dy" '(org-roam-dailies-capture-yesterday :which-key "Dailies Capture Yesterday")
+;; "gt" '(org-roam-dailies-goto-today :which-key "Dailies goto today")
+;; "gy" '(org-roam-dailies-goto-yesterday :which-key "Dailies goto yesterday")
+;; "gd" '(org-roam-dailies-goto-date :which-key "Dailies goto date")
+;; "gl" '(org-roam-dailies-goto-next-note :which-key "Dailies goto next note")
+;; "gh" '(org-roam-dailies-goto-previous-note :which-key "Dailies goto previous note")
 
 
-  ;; magit
-  "m" '(magit :which-key "magit")
-  ;; Visual toggles
-  "vl" '(display-line-numbers-mode :which-key "toggle line numbers")
-  "vt" '(toggle-truncate-lines :which-key "toggle truncated lines")
-  "vv" '(visual-line-mode :which-key "toggle visual mode")
-  ;; windows
-  "wj" '(evil-window-down :which-key "window down")
-  "wk" '(evil-window-up :which-key "window up")
-  "wh" '(evil-window-left :which-key "window left")
-  "wl" '(evil-window-right :which-key "window right")
-  "ws" '(evil-window-split :which-key "window split")
-  "wv" '(evil-window-vsplit :which-key "window vsplit")
-  "wd" '(evil-window-delete :which-key "window delete")
+;; magit
+"m" '(magit :which-key "magit")
+;; Visual toggles
+"vl" '(display-line-numbers-mode :which-key "toggle line numbers")
+"vt" '(toggle-truncate-lines :which-key "toggle truncated lines")
+"vv" '(visual-line-mode :which-key "toggle visual mode")
+;; windows
+"wj" '(evil-window-down :which-key "window down")
+"wk" '(evil-window-up :which-key "window up")
+"wh" '(evil-window-left :which-key "window left")
+"wl" '(evil-window-right :which-key "window right")
+"ws" '(evil-window-split :which-key "window split")
+"wv" '(evil-window-vsplit :which-key "window vsplit")
+"wd" '(evil-window-delete :which-key "window delete")
 
-  ;; tabs
-  "tn" '(tab-new :which-key "tab new")
-  "th" '(tab-previous :which-key "tab previous")
-  "tl" '(tab-next :which-key "tab next")
-  "tc" '(tab-close :which-key "tab close")
+;; tabs
+"tn" '(tab-new :which-key "tab new")
+"th" '(tab-previous :which-key "tab previous")
+"tl" '(tab-next :which-key "tab next")
+"tc" '(tab-close :which-key "tab close")
 
-  ;; evil-commenter
-  "ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
-  "cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
-  "cc" '(nc-copy-and-comment-lines :which-key "copy & comment")
-  "cp" '(evilnc-comment-or-uncomment-paragraphs :which-key "(un)comment parahraphs")
-  "cr" '(comment-or-uncomment-region :which-key "(un)comment region")
-  "cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
-  "\\" '(evilnc-comment-operator :which-key "comment operator")
+;; evil-commenter
+"ci" '(evilnc-comment-or-uncomment-lines :which-key "(un)comment line")
+"cl" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "(un)comment to the line")
+"cc" '(nc-copy-and-comment-lines :which-key "copy & comment")
+"cp" '(evilnc-comment-or-uncomment-paragraphs :which-key "(un)comment parahraphs")
+"cr" '(comment-or-uncomment-region :which-key "(un)comment region")
+"cv" '(evilnc-toggle-invert-comment-line-by-line :which-key "invert comment by line")
+"\\" '(evilnc-comment-operator :which-key "comment operator")
 
-  ;; avy
-  ";"  '(avy-goto-char-timer :which-key "avy char timer")
+;; avy
+";"  '(avy-goto-char-timer :which-key "avy char timer")
 
-  ;; term
-  "tt" '(term :which-key "shell")
+;; term
+"tt" '(term :which-key "shell")
 
-  ;; Dictionary
-  "sd" '(fd-switch-dictionary :which-key "toggle language")
-  "se" '(flyspell-mode :which-key "toggle flyspell ON/OFF")
-  "sh" '(f1 :which-key "previous spell error") 
-  "sl" '(f2 :which-key "next spell error")    
-  "kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
+;; Dictionary
+"sd" '(fd-switch-dictionary :which-key "toggle language")
+"se" '(flyspell-mode :which-key "toggle flyspell ON/OFF")
+"sh" '(f1 :which-key "previous spell error") 
+"sl" '(f2 :which-key "next spell error")    
+"kr" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")):which-key "reload emacs init file")
 
-  ;; agenda files
-  "aa" '(org-agenda :which-key "open agenda menu")
+;; agenda files
+"aa" '(org-agenda :which-key "open agenda menu")
 
-  ;; helm-projectile
-  "pp" '(helm-projectile-switch-project :which-key "switch project")
-  "pf" '(helm-projectile-find-file :which-key "find file")
-  "pd" '(helm-projectile-dir :which-key "find dir")
-  "pg" '(helm-projectile-grep :which-key "grep in project")
-  "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
-  ;; ayuda para tomar apuntes
-  ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
-  ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
-  
-  ;; session manager 
-  "sn" '(sessions-set-name :which-key "Set session name")
-  "sz" '(sessions-save :which-key "Save session")
-  "sa" '(sessions-open :which-key "Open Session")
-			      
-  ;; ...
+;; helm-projectile
+"pp" '(helm-projectile-switch-project :which-key "switch project")
+"pf" '(helm-projectile-find-file :which-key "find file")
+"pd" '(helm-projectile-dir :which-key "find dir")
+"pg" '(helm-projectile-grep :which-key "grep in project")
+"pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
+;; ayuda para tomar apuntes
+;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
+;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
+
+;; session manager 
+"sn" '(sessions-set-name :which-key "Set session name")
+"sz" '(sessions-save :which-key "Save session")
+"ss" '(sessions-open :which-key "Open Session")
+
+;; ...
 )
 
 ;; Other keybidings
 ; Save the init.el file and reloads emacs
 (global-set-key (kbd "C-c e i") (lambda () (interactive)
-                             (let ((init-file "~/.emacs.d/init.el"))
-                               (if (equal (buffer-file-name) (expand-file-name init-file))
-                                   (save-buffer)
-                                 (with-temp-buffer
-                                   (find-file init-file)
-                                   (save-buffer))))
-                             (load-file "~/.emacs.d/init.el")))
+			    (let ((init-file "~/.emacs.d/init.el"))
+			    (if (equal (buffer-file-name) (expand-file-name init-file))
+				(save-buffer)
+				(with-temp-buffer
+				(find-file init-file)
+				(save-buffer))))
+			    (load-file "~/.emacs.d/init.el")))
 
 ; Evaluation of emacs code
 ;; C-x C-e eval just one line of code
@@ -648,3 +649,4 @@ consult-org-roam-forward-links
 ;; auto save on emacs exit (killing the window)
 (add-hook 'delete-frame-functions (lambda () (sessions-close)))
 (add-hook 'kill-emacs-hook (lambda () (sessions-close)))
+(setq desktop-load-locked-desktop t)

@@ -40,6 +40,13 @@
         (y-or-n-p (concat "Save current session '" sessions-name "'?")))
   (call-interactively 'sessions-save)))
 
+(defun sessions-delete ()
+ (interactive)
+ (when sessions-name
+  (call-interactively 'sessions-close))
+ (call-interactively 'sessions-set-name)
+ (desktop-clear (sessions-dir)))
+
 
 (defun sessions-open ()
  (interactive)
