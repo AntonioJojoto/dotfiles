@@ -18,12 +18,14 @@
 
 ; org mode
 (straight-use-package 'org-bullets)
+(straight-use-package 'org-bullets)
 (straight-use-package 'org-roam)
 (straight-use-package 'org-attach-screenshot)
 (straight-use-package 'org-ref)
 (straight-use-package 'org-fragtog)
 (straight-use-package 'consult-org-roam)
 (straight-use-package 'org-roam-ui)
+
 
 ;; org roam ui configuration
 (setq org-roam-ui-sync-theme t
@@ -41,6 +43,8 @@
 
 ; functionality
 (straight-use-package 'helm)
+(straight-use-package 'helm-company)
+(straight-use-package 'company-quickhelp)
 (straight-use-package 'consult)
 (straight-use-package 'counsel)
 (straight-use-package 'ivy)
@@ -185,7 +189,7 @@
 (define-key global-map (kbd "C-.") 'company-files)
 
 ; Comprany backends (where company gets the search results)
-(setq company-backends '((company-capf company-dabbrev-code company-yasnippet)))
+;; (setq company-backends '((company-capf company-dabbrev-code company-yasnippet)))
 (setq company-dabbrev-minimum-length 2)
 
 
@@ -634,3 +638,13 @@ consult-org-roam-forward-links
 
 (run-with-timer 0 120 'save-all-org-buffers)
 (put 'downcase-region 'disabled nil)
+
+(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
+(eval-after-load 'company
+  '(progn
+     (define-key company-mode-map (kbd "C-;") 'helm-company)
+     (define-key company-active-map (kbd "C-;") 'helm-company)))
+
+(company-quickhelp-mode)
+
+
