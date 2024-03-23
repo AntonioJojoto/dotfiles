@@ -78,6 +78,10 @@
 (straight-use-package 'auctex)
 (straight-use-package 'cdlatex)
 
+;; Load custom functions
+(load "~/.emacs.d/useful_functions.el")
+
+
 ;; hide GUI
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -111,33 +115,11 @@
 (setq display-line-numbers-type 'relative)		; relative line numbers
 
 ;; Linebreaks
-;; Spellcheck
-(defun fd-switch-dictionary()
-      (interactive)
-      (let* ((dic ispell-current-dictionary)
-    	 (change (if (string= dic "es") "english" "es")))
-        (ispell-change-dictionary change)
-        (message "Dictionary switched from %s to %s" dic change)
-        ))
-
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
-
-; Get the next spell error and prompts the correct possibilities
-; When invoking commands that require some input arguments, run as interactively
-(defun f1()
-  (interactive)
-  (call-interactively 'evil-prev-flyspell-error) ; go to the next error
-  (call-interactively 'ispell-word))             ; and prompt the correction
-
-; Get the next spell error and prompts the correct possibilities
-(defun f2()
-  (interactive)
-  (call-interactively 'evil-next-flyspell-error) ; go to the next error
-  (call-interactively 'ispell-word))             ; and prompt the correction
 
 ;; Preview all latex fragments
 (defun latex-preview-all()
@@ -622,20 +604,8 @@ consult-org-roam-forward-links
 (global-set-key (kbd "C-c e r") 'eval-region)
 (global-set-key (kbd "C-c e b") 'eval-buffer)
 
-
-;; Useful functions
-
 ; Function that saves all org buffers, we don't want to run this on code.
 ; may be run every two minutes
-(defun save-all-org-buffers ()
-  (interactive)
-  (dolist (buf (buffer-list))
-    (with-current-buffer buf
-      (when (and (buffer-file-name) ; Check if buffer is associated with a file
-                 (string= (file-name-extension (buffer-file-name)) "org")
-                 (buffer-modified-p))
-        (save-buffer)))))
-
 (run-with-timer 0 120 'save-all-org-buffers)
 (put 'downcase-region 'disabled nil)
 
