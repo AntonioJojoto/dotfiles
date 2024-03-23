@@ -181,12 +181,22 @@
 
 ;; Eglot and hooks
 (require 'eglot)
-(add-hook 'c-mode-hook #'eglot)
-(add-hook 'c++-mode-hook #'eglot)
-(add-hook 'python-mode-hook #'eglot)
-(add-hook 'elisp-mode-hook #'eglot)
-; run  npm i -g bash-language-server
-(add-hook 'bash-mode-hook #'eglot)
+;; (add-hook 'c-mode-hook #'eglot)
+;; (add-hook 'c++-mode-hook #'eglot)
+;; (add-hook 'python-mode-hook #'eglot)
+;; (add-hook 'elisp-mode-hook #'eglot)
+;; ; run  npm i -g bash-language-server
+;; (add-hook 'bash-mode-hook #'eglot)
+
+; debuggers for hooks
+(add-hook 'c-mode-hook
+          (lambda ()
+            (message "Welcome to C mode!")))
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (message "Welcome to python mode!")))
+
 
 ;; Use ivy for searching and launching
 ;; And also helm
