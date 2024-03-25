@@ -31,3 +31,14 @@
         (message "Dictionary switched from %s to %s" dic change)
         ))
 
+;; Custom search functions
+(defun rg-roam-search (search-term)
+  "Perform a helm-rg search within `org-roam-directory' with predefined settings."
+  (interactive "sSearch for: ") ;; Prompts the user for the search term
+  (let ((helm-rg-default-directory org-roam-directory) ;; Set search directory to org-roam-directory
+        (helm-rg-default-extra-args '("--ignore-case" ;; Case insensitive search
+                                      "--type" "org"  ;; Search only org files
+                                      "--max-columns=500" ;; Max column width
+                                      )))
+    ;; Execute helm-rg search
+    (helm-rg search-term nil)))

@@ -44,6 +44,7 @@
 ; functionality
 (straight-use-package 'helm)
 (straight-use-package 'helm-company)
+(straight-use-package 'helm-rg)
 (straight-use-package 'company-quickhelp)
 (straight-use-package 'consult)
 (straight-use-package 'counsel)
@@ -449,22 +450,17 @@
 ;; Activate the minor mode
 (consult-org-roam-mode 1)
 ;; Use `ripgrep' for searching with `consult-org-roam-search'
-(setq consult-org-roam-grep-func #'consult-ripgrep)
+(setq consult-org-roam-grep-func #'consult-grep)
 ;; Configure a custom narrow key for `consult-buffer'
 (setq consult-org-roam-buffer-narrow-key ?r)
 ;; Display org-roam buffers right after non-org-roam buffers
 ;; in consult-buffer (and not down at the bottom)
 (setq consult-org-roam-buffer-after-buffers t)
 ;; Eventually suppress previewing for certain functions
-(consult-customize
-consult-org-roam-forward-links
-:preview-key "M-.")
-;; Define some convenient keybindings as an addition
 ; Este no vale nada porque es como roam-find
-(global-set-key (kbd "C-c n g") 'consult-org-roam-file-find)
-(global-set-key (kbd "C-c n i") 'consult-org-roam-backlinks)
-(global-set-key (kbd "C-c n r") 'consult-org-roam-forward-links)
-(global-set-key (kbd "C-c n b") 'consult-org-roam-search)
+(global-set-key (kbd "C-c n b") 'consult-org-roam-backlinks)
+(global-set-key (kbd "C-c n f") 'consult-org-roam-forward-links)
+(global-set-key (kbd "C-c n s") 'rg-roam-search)
 
 
 
@@ -645,5 +641,4 @@ consult-org-roam-forward-links
      (define-key company-active-map (kbd "C-;") 'helm-company)))
 
 (company-quickhelp-mode)
-
 
