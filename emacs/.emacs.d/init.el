@@ -181,21 +181,30 @@
 
 ;; Eglot and hooks
 (require 'eglot)
-;; (add-hook 'c-mode-hook #'eglot)
-;; (add-hook 'c++-mode-hook #'eglot)
-;; (add-hook 'python-mode-hook #'eglot)
-;; (add-hook 'elisp-mode-hook #'eglot)
-;; ; run  npm i -g bash-language-server
-;; (add-hook 'bash-mode-hook #'eglot)
 
-; debuggers for hooks
-(add-hook 'c-mode-hook
-          (lambda ()
-            (message "Welcome to C mode!")))
+;; C 
+; add eglot and company when calling treesiter
+(use-package c-ts-mode
+  :hook ((c-ts-mode . eglot-ensure)
+	 (c-ts-mode . company-mode))
+  )
+; begin ts when c mode
+(add-hook 'c-mode-hook 'c-ts-mode)
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (message "Welcome to python mode!")))
+;; C++
+(use-package c++-ts-mode
+  :hook ((c++-ts-mode . eglot-ensure)
+	 (c++-ts-mode . company-mode))
+  )
+(add-hook 'c++-mode-hook 'c++-ts-mode)
+
+;; python
+;; (use-package python-ts-mode
+;;   :hook ((python-ts-mode . eglot-ensure)
+;; 	 (python-ts-mode . company-mode))
+;;   )
+;; ; begin ts when c mode
+;; (add-hook 'python-mode-hook 'python-ts-mode)
 
 
 ;; Use ivy for searching and launching
