@@ -206,6 +206,16 @@
 ;; ; begin ts when c mode
 ;; (add-hook 'python-mode-hook 'python-ts-mode)
 
+;; keybindings for programming mode
+(global-set-key (kbd "C-c l a") 'eglot-code-actions)
+(global-set-key (kbd "C-c l r") 'eglot-rename)
+(global-set-key (kbd "C-c d") 'eldoc)
+(global-set-key (kbd "C-c l f") 'eglot-format)
+(global-set-key (kbd "C-c l F") 'eglot-format-buffer)
+(global-set-key (kbd "C-c l d") 'xref-find-definitions)
+(global-set-key (kbd "C-c l m") 'imenu)
+
+
 
 ;; Use ivy for searching and launching
 ;; And also helm
