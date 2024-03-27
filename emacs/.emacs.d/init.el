@@ -173,12 +173,17 @@
   ;; (define-key company-active-map (kbd "M-p") nil)
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
+;; Do you want company mode active on all the buffer? Like org?
 (add-hook 'after-init-hook 'global-company-mode)
 (define-key global-map (kbd "C-.") 'company-files)
+(setq company-dabbrev-minimum-length 1)
+(setq company-idle-delay 0.1)
 
-; Comprany backends (where company gets the search results)
-;; (setq company-backends '((company-capf company-dabbrev-code company-yasnippet)))
-(setq company-dabbrev-minimum-length 2)
+;; Consult todo uses keywords todo, hack, 
+(straight-use-package 'consult-todo)
+(setq consult-todo-only-comment t)
+(global-set-key (kbd "<f5> t") 'consult-todo)
+(global-set-key (kbd "<f5> T") 'consult-todo-project)
 
 
 ;; Yasnippet
@@ -218,15 +223,19 @@
   )
 
 ;; keybindings for programming mode
-(global-set-key (kbd "C-c l a") 'eglot-code-actions)
-(global-set-key (kbd "C-c l r") 'eglot-rename)
-(global-set-key (kbd "C-c d") 'eldoc)
-(global-set-key (kbd "C-c l f") 'eglot-format)
-(global-set-key (kbd "C-c l F") 'eglot-format-buffer)
-(global-set-key (kbd "C-c l d") 'xref-find-definitions)
-(global-set-key (kbd "C-c l m") 'imenu)
+(global-set-key (kbd "<f5> a") 'eglot-code-actions)
+(global-set-key (kbd "<f5> r") 'eglot-rename)
+(global-set-key (kbd "<f5> d") 'eldoc)
+(global-set-key (kbd "<f5> f") 'eglot-format)
+(global-set-key (kbd "<f5> F") 'eglot-format-buffer)
+(global-set-key (kbd "<f5> d") 'xref-find-definitions)
+(global-set-key (kbd "<f5> d") 'xref-find-definitions)
+(global-set-key (kbd "<f5> m") 'consult-imenu-multi)
+(global-set-key (kbd "<f5> c") 'recompile)
+;; (global-set-key (kbd "<f5> c") 'projectile-compile-project)
 
-
+;; elisp
+;; (add-hook 'emacs-lisp-mode 'company-mode)
 
 ;; Use ivy for searching and launching
 ;; And also helm
@@ -261,7 +270,6 @@
 
 ;; projectile
 (projectile-mode 1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 
 ;; which key
@@ -609,10 +617,12 @@
 
   ;; helm-projectile
   "pp" '(helm-projectile-switch-project :which-key "switch project")
-  "pf" '(helm-projectile-find-file :which-key "find file")
-  "pd" '(helm-projectile-dir :which-key "find dir")
+  "ps" '(helm-projectile-find-other-file :which-key "switch file")
+  "pd" '(helm-projetile-find-file-dwin :which-key "find ")
   "pg" '(helm-projectile-grep :which-key "grep in project")
   "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
+  "pS" '(projectile-save-project-buffers :which-key "save project buffers")
+  "pk" '(projectile-kill-buffers :which-key "kill project buffers")
   ;; ayuda para tomar apuntes
   ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
   ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
