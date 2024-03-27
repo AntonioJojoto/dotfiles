@@ -161,6 +161,11 @@
 (evil-mode 1)
 (evil-snipe-mode 1)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;      IDE Stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Company
 (require 'company)
 (with-eval-after-load 'company)
@@ -200,12 +205,17 @@
 (add-hook 'c++-mode-hook 'c++-ts-mode)
 
 ;; python
-;; (use-package python-ts-mode
-;;   :hook ((python-ts-mode . eglot-ensure)
-;; 	 (python-ts-mode . company-mode))
-;;   )
-;; ; begin ts when c mode
-;; (add-hook 'python-mode-hook 'python-ts-mode)
+
+(use-package python
+  :config
+  ;; Remove guess indent python message
+  (setq python-indent-guess-indent-offset-verbose nil))
+
+(use-package python-ts-mode
+  :hook ((python-ts-mode . eglot-ensure)
+	 (python-ts-mode . company-mode))
+  :mode (("\\.py\\'" . python-ts-mode))
+  )
 
 ;; keybindings for programming mode
 (global-set-key (kbd "C-c l a") 'eglot-code-actions)
