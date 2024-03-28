@@ -182,8 +182,8 @@
 ;; Consult todo uses keywords todo, hack, 
 (straight-use-package 'consult-todo)
 (setq consult-todo-only-comment t)
-(global-set-key (kbd "<f5> t") 'consult-todo)
-(global-set-key (kbd "<f5> T") 'consult-todo-project)
+(global-set-key (kbd "C-c e t") 'consult-todo)
+(global-set-key (kbd "C-c e T") 'consult-todo-project)
 
 
 ;; Yasnippet
@@ -222,16 +222,21 @@
   :mode (("\\.py\\'" . python-ts-mode))
   )
 
+(straight-use-package 'pyvenv)
+(pyvenv-mode 1)
+
 ;; keybindings for programming mode
-(global-set-key (kbd "<f5> a") 'eglot-code-actions)
-(global-set-key (kbd "<f5> r") 'eglot-rename)
-(global-set-key (kbd "<f5> d") 'eldoc)
-(global-set-key (kbd "<f5> f") 'eglot-format)
-(global-set-key (kbd "<f5> F") 'eglot-format-buffer)
-(global-set-key (kbd "<f5> d") 'xref-find-definitions)
-(global-set-key (kbd "<f5> d") 'xref-find-definitions)
-(global-set-key (kbd "<f5> m") 'consult-imenu-multi)
+(global-set-key (kbd "C-c e a") 'eglot-code-actions)
+(global-set-key (kbd "C-c e r") 'eglot-rename)
+(global-set-key (kbd "C-c e d") 'eldoc)
+(global-set-key (kbd "C-c e f") 'eglot-format)
+(global-set-key (kbd "C-c e F") 'eglot-format-buffer)
+(global-set-key (kbd "C-c e d") 'xref-find-definitions)
+(global-set-key (kbd "C-c e d") 'xref-find-definitions)
+(global-set-key (kbd "C-c e m") 'consult-imenu-multi)
+(global-set-key (kbd "C-c e e") 'consult-flymake)
 (global-set-key (kbd "<f5> c") 'recompile)
+
 ;; (global-set-key (kbd "<f5> c") 'projectile-compile-project)
 
 ;; elisp
@@ -645,9 +650,9 @@
 
 ; Evaluation of emacs code
 ;; C-x C-e eval just one line of code
-(global-set-key (kbd "C-c e f") 'eval-defun)
-(global-set-key (kbd "C-c e r") 'eval-region)
-(global-set-key (kbd "C-c e b") 'eval-buffer)
+(global-set-key (kbd "C-c m f") 'eval-defun)
+(global-set-key (kbd "C-c m r") 'eval-region)
+(global-set-key (kbd "C-c m b") 'eval-buffer)
 
 ; Function that saves all org buffers, we don't want to run this on code.
 ; may be run every two minutes
@@ -662,3 +667,4 @@
 
 (company-quickhelp-mode)
 
+;; Mark ring navigation
