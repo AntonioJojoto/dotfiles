@@ -185,7 +185,6 @@
 (global-set-key (kbd "C-c e t") 'consult-todo)
 (global-set-key (kbd "C-c e T") 'consult-todo-project)
 
-
 ;; Yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -224,6 +223,23 @@
 
 (straight-use-package 'pyvenv)
 (pyvenv-mode 1)
+
+;; LaTeX
+(add-hook 'latex-mode-hook 'turn-on-cdlatex)
+(add-hook 'LaTeX-mode-hook 'eglot-ensure)
+(add-hook 'LaTeX-mode-hook 'company-mode)
+(require 'tex)
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+;; Use pdflatex and open output with zathura
+(setq TeX-view-program-selection '((output-pdf "Zathura")))
+(setq TeX-view-program-list
+      '(("Zathura" "zathura %o")))
+
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 ;; keybindings for programming mode
 (global-set-key (kbd "C-c e a") 'eglot-code-actions)
@@ -393,7 +409,6 @@
 (setq org-startup-indented t)
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex) 
 (add-hook 'org-mode-hook 'visual-line-mode) 
-(add-hook 'latex-mode-hook 'turn-on-cdlatex)
 
 
 ; turn on org latex preview by default
@@ -537,16 +552,6 @@
           (concat "${type:15} ${title:*}" (propertize "${tags:10}" 'face 'org-tag)))
 
 
-;; pdf tools
-;; (pdf-tools-install)
-;; (evil-set-initial-state 'pdf-view-mode 'normal)
-
-;; auctex
-;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-;;      TeX-source-correlate-start-server t)
-
-; revert the PDF-buffer after the TeX compilation has finished
-;; (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 ;; keybinds
 (general-define-key
