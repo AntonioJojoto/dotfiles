@@ -78,6 +78,7 @@
 ;; (straight-use-package 'pdf-tools)
 (straight-use-package 'auctex)
 (straight-use-package 'cdlatex)
+(straight-use-package 'xenops)
 
 ;; Load custom functions
 (load "~/.emacs.d/useful_functions.el")
@@ -345,8 +346,9 @@
 
 ; org-refile
 (setq org-refile-targets '(
-			   ("~/.org/agenda/todo.org" :maxlevel . 1)
-			   ("~/.org/agenda/someday.org" :maxlevel . 1)
+			   ("~/.org/agenda/RL.org" :maxlevel . 1)
+			   ;; ("~/.org/agenda/todo.org" :maxlevel . 1)
+			   ;; ("~/.org/agenda/someday.org" :maxlevel . 1)
 			   ))
 
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
@@ -373,6 +375,21 @@
 	;; that is what %a does
         (";" "someday with link" entry (file "~/.org/agenda/someday.org")
          "* TODO %?\n  %i\n %a")
+
+	;; BibTeX entry
+	("b"
+	 "BibTex reference"
+	 plain
+	 (file "~/.org/references.bib")
+	 "%i\n\n")
+
+	;; Thesis TODO
+	("t" "Thesis Inbox" entry (file+headline "~/.org/agenda/RL.org" "Inbox")  
+         "** TODO %?\n  %i\n")
+
+	;; Thesis TODO with link
+	("T" "Thesis Inbox" entry (file+headline "~/.org/agenda/RL.org" "Inbox")  
+         "** TODO %?\n  %i\n %a")
 
 	))
 
@@ -429,21 +446,23 @@
 ; place where the bibliografy will be stored
 (require 'org-ref)
 ; main .bib file
-(setq reftex-default-bibliography '("~/.org/references.bib"))
-(setq org-ref-default-bibliography '("~/.org/references.bib"))
+(setq reftex-default-bibliography '("~/.org/current_refs.bib"))
+(setq org-ref-default-bibliography '("~/.org/current_refs.bib"))
 ; folder where pdf will be downloaded
 (setq org-ref-pdf- '("~/.org/bib_pdfs/"))
 ; file where citation notes will be stored
 (setq org-ref-bibliografy-notes '("~/.org/bib_notes.org"))
 (setq org-latex-prefer-user-labels t)
-;; (setq org-latex-pdf-process
-;;     '("pdflatex -interaction nonstopmode -output-directory %o %f"
-;;	"bibtex %b"
-;;	"pdflatex -interaction nonstopmode -output-directory %o %f"
-;;	"pdflatex -interaction nonstopmode -output-directory %o %f"))
+
+; commands for exporting the bibtex
+(setq org-latex-pdf-process
+    '("pdflatex -interaction nonstopmode -output-directory %o %f"
+	"bibtex %b"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 (require 'helm-bibtex)
-(setq bibtex-completion-bibliography '("~/.org/references.bib"))
+(setq bibtex-completion-bibliography '("~/.org/current_refs.bib"))
 
 
 
@@ -633,9 +652,9 @@
   "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
   "pS" '(projectile-save-project-buffers :which-key "save project buffers")
   "pk" '(projectile-kill-buffers :which-key "kill project buffers")
-  ;; ayuda para tomar apuntes
-  ;;"ar" '(org-ref-helm-insert-ref-link :which-key "org-ref insert link")
-  ;;"af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
+  ;; org-ref help
+  "rr" '(org-ref-cite-insert-helm :which-key "org-ref insert link")
+  "af" '(org-fragtog-mode :which-key "Toggle fragtop mode")
   
   ;; help in emacs
 			      
@@ -672,3 +691,16 @@
 
 (company-quickhelp-mode)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/.org/tesis/borrador.org" "/home/tony/.org/agenda/Inbox.org" "/home/tony/.org/agenda/RL.org" "/home/tony/.org/agenda/archive.org" "/home/tony/.org/agenda/learning.org" "/home/tony/.org/agenda/someday.org" "/home/tony/.org/agenda/todo.org")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

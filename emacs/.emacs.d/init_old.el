@@ -537,3 +537,4 @@ u; Straight package manager
  )
 
 ;; Some usefull functions
+
