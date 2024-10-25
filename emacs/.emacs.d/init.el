@@ -167,6 +167,14 @@
 ;;;;;;      IDE Stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; Eglot and hooks
+(require 'eglot)
+
+
 ;; Company
 (require 'company)
 (with-eval-after-load 'company)
@@ -179,19 +187,13 @@
 (define-key global-map (kbd "C-.") 'company-files)
 (setq company-dabbrev-minimum-length 1)
 (setq company-idle-delay 0.1)
-
+;; (add-to-list 'company-backends 'company-yasnippet)
 ;; Consult todo uses keywords todo, hack, 
 (straight-use-package 'consult-todo)
 (setq consult-todo-only-comment t)
 (global-set-key (kbd "C-c e t") 'consult-todo)
 (global-set-key (kbd "C-c e T") 'consult-todo-project)
 
-;; Yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-
-;; Eglot and hooks
-(require 'eglot)
 
 ;; C 
 ; add eglot and company when calling treesiter
@@ -230,6 +232,8 @@
 (add-hook 'LaTeX-mode-hook 'eglot-ensure)
 (add-hook 'LaTeX-mode-hook 'company-mode)
 (require 'tex)
+(add-hook 'latex-mode-hook #'xenops-mode)
+(add-hook 'LaTeX-mode-hook #'xenops-mode)
 
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -241,6 +245,8 @@
       '(("Zathura" "zathura %o")))
 
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+(setq reftex-bibpath-environment-variables
+      '("~/3ro_Carrera/Thesis/references.bib"))
 
 ;; keybindings for programming mode
 (global-set-key (kbd "C-c e a") 'eglot-code-actions)
@@ -252,6 +258,7 @@
 (global-set-key (kbd "C-c e d") 'xref-find-definitions)
 (global-set-key (kbd "C-c e m") 'consult-imenu-multi)
 (global-set-key (kbd "C-c e e") 'consult-flymake)
+(global-set-key (kbd "C-c e t") 'reftex)
 (global-set-key (kbd "<f5> c") 'recompile)
 
 ;; (global-set-key (kbd "<f5> c") 'projectile-compile-project)
@@ -647,7 +654,7 @@
   ;; helm-projectile
   "pp" '(helm-projectile-switch-project :which-key "switch project")
   "ps" '(helm-projectile-find-other-file :which-key "switch file")
-  "pd" '(helm-projetile-find-file-dwin :which-key "find ")
+  "pf" '(projetile-find-file :which-key "find file")
   "pg" '(helm-projectile-grep :which-key "grep in project")
   "pb" '(helm-projectile-switch-to-buffer :which-key "switch buffer")
   "pS" '(projectile-save-project-buffers :which-key "save project buffers")
