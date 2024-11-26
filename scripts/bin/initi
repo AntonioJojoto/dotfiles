@@ -1,7 +1,0 @@
-#!/bin/sh
-
-sxhkd &
-dwmblocks &
-dunst &
-ls ~/.org/agenda | entr -p compile_agenda 
-#echo ~/.org/agenda/Universidad.org | entr compile_agenda 
