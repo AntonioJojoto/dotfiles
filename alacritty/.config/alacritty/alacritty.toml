@@ -27,7 +27,7 @@ background = "#282828"
 foreground = "#ebdbb2"
 
 [font]
-size = 15.0
+size = 13.0
 
 [font.bold]
 family = "Iosevka"
@@ -365,6 +365,10 @@ startup_mode = "Windowed"
 [window.dimensions]
 columns = 100
 lines = 85
+
+[terminal.shell]
+program = "zellij"
+args = ["-l", "welcome"]
 
 [window.padding]
 x = 0
