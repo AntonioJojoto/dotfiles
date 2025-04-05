@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Set the base directory to search from (modify as needed)
+BASE_DIR="$HOME/projects/"
+
+# Function to find git repositories
+find_git_repos() {
+  find "$BASE_DIR" -type d -name ".git" -prune 2>/dev/null | xargs -n 1 dirname
+}
+
+# Use fzf to select a repository
+select_repo() {
+  find_git_repos | fzf --height 50% --border
+}
+
+# Main functionality
+if ! command -v fzf >/dev/null 2>&1; then
+  echo "Error: fzf is not installed. Please install it first."
+  exit 1
+fi
+
+selected_repo=$(select_repo)
+
+if [ -n "$selected_repo" ]; then
+  echo "Selected repository: $selected_repo"
+  
+  # You can customize what happens when a repo is selected:
+  # Option 1: Change to the directory
+  cd "$selected_repo" && exec $SHELL
+  
+  # Option 2: Open in your editor
+  # $EDITOR "$selected_repo"
+  
+  # Option 3: Just print the path (remove the cd command above)
+  # echo "$selected_repo"
+else
+  echo "No repository selected."
+fi
